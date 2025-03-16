@@ -8,6 +8,6 @@ set(SDL2_PATH "F:/SDL2-2.30.8/x86_64-w64-mingw32")
 find_package(SDL2 REQUIRED)
 include_directories(${SDL2_INCLUDE_DIR})
 
-add_executable(bomberman main.cpp)
+add_executable(bomberman src/main.cpp)
 
 target_link_libraries(${PROJECT_NAME} ${SDL2_LIBRARY})
