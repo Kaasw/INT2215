@@ -18,7 +18,7 @@
     <ClInclude Include="include\Application.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\Spritesheet.h">
+    <ClInclude Include="include\Bomber.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -27,6 +27,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Application.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Bomber.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

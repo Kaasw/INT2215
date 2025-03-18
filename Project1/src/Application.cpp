@@ -39,21 +39,7 @@ Application::Application()
        std::cout << "Failed to get window's surface\n";  
        std::cout << "SDL2 Error: " << SDL_GetError() << "\n";  
        return;  
-   }  
-
-   m_image = load_surface("assets/texture/stick_figure.png");
-   m_image_x = 0.0;
-   m_image_y = 0.0;
-   m_image_position.x = 0;
-   m_image_position.y = 0;
-   m_image_position.w = 22;
-   m_image_position.h = 43;
-   if(!m_image)  
-   {  
-       std::cout << "Failed to load image\n";  
-       std::cout << "SDL2 Error: " << SDL_GetError() << "\n";  
-       return;  
-   }  
+   }    
 }  
 
 Application::~Application()  
@@ -67,8 +53,10 @@ void Application::loop()
     bool keep_window_open = true;
     while (keep_window_open)
     {
+
         while (SDL_PollEvent(&m_window_event) > 0)
         {
+			m_bomber.handleInput(m_window_event);
             switch (m_window_event.type)
             {
             case SDL_QUIT:
@@ -84,15 +72,14 @@ void Application::loop()
 
 void Application::update(double delta_time)
 {
-    m_image_x = m_image_x + (5 * delta_time);
-    m_image_position.x = m_image_x;
+	m_bomber.update(delta_time);
 }
 
 
 void Application::draw()  
 {
    SDL_FillRect(m_window_surface, NULL, SDL_MapRGB(m_window_surface->format, 0, 0, 0));
-   SDL_BlitSurface(m_image, NULL, m_window_surface, &m_image_position);  
+   m_bomber.draw(m_window_surface);
    
    SDL_UpdateWindowSurface(m_window);  
 }
