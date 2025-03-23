@@ -17,7 +17,7 @@ public:
 
 private:
     std::vector<std::vector<Object*>> m_mapData;  
-    std::vector<Object*> m_bricks; 
+    std::vector<Object*> m_objects; 
     int m_brickWidth;
     int m_brickHeight;
     void clearMap();

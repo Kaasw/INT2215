@@ -2,7 +2,7 @@
 #include <SDL_image.h>  
 
 Application::Application()
-    : m_bomber(0, 0, 0, 0), m_brick(0,0,0,0)
+    : m_bomber(32,32,32,32)
 	
 {
     m_window = SDL_CreateWindow("SDL2 Window",
@@ -67,7 +67,7 @@ void Application::update(float delta_time)
 void Application::draw()
 {
     SDL_FillRect(m_window_surface, NULL, SDL_MapRGB(m_window_surface->format, 255, 153, 204));
-	m_brick.draw(m_window_surface);
+	
 	m_map.draw(m_window_surface);
     
     m_bomber.draw(m_window_surface);

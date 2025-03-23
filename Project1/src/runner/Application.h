@@ -3,7 +3,6 @@
 #include <SDL.h>
 #include "../entities/player/Bomber.h"
 #include "../graphics/map/map.h"
-#include "../entities/brick/brick.h"
 #include <iostream>
 
 class Application
@@ -17,7 +16,6 @@ public:
     void draw();
 private:
     Bomber m_bomber;
-	Brick m_brick;
 	Map m_map;
     SDL_Window* m_window;
     SDL_Surface* m_window_surface;

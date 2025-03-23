@@ -46,7 +46,7 @@ bool Map::loadMap(const std::string& filePath) {
                 );
 
                 // Add the brick to our flat list for easy access
-                m_bricks.push_back(object);
+                m_objects.push_back(object);
             }
 
 			else if (line[x] == 'G') {
@@ -57,7 +57,7 @@ bool Map::loadMap(const std::string& filePath) {
 					m_brickWidth,          // width
 					m_brickHeight          // height
 				);
-                m_bricks.push_back(object);
+                m_objects.push_back(object);
 			}
 
             // Add the brick (or nullptr for empty space) to the row
@@ -70,10 +70,6 @@ bool Map::loadMap(const std::string& filePath) {
         // Move to next row
         y++;
     }
-
-    std::cout << "Map loaded with " << m_bricks.size() << " bricks." << std::endl;
-    std::cout << "Map dimensions: " << m_mapData.size() << " rows x "
-        << (m_mapData.empty() ? 0 : m_mapData[0].size()) << " columns." << std::endl;
     return true;
 }
 
@@ -98,11 +94,11 @@ void Map::draw(SDL_Surface* window_surface) {
 
 void Map::clearMap() {
 
-    for (Object* brick : m_bricks) {
-        delete brick;
+    for (Object* objects : m_objects) {
+        delete objects;
     }
 
     // Clear both containers
-    m_bricks.clear();
+    m_objects.clear();
     m_mapData.clear();
 }
