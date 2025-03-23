@@ -1,3 +1,6 @@
+#ifndef OBJECT_H
+#define OBJECT_H
+
 #include <SDL.h>
 
 class Object {
@@ -8,7 +11,8 @@ public:
         BRICK,
         GRASS,
         BOMB,
-        POWERUP
+        POWERUP,
+        WALL
     };
 
     Object(int x, int y, int width, int height, Type type);
@@ -28,11 +32,11 @@ public:
     void setPosition(int x, int y) { m_x = x; m_y = y; }
 
     virtual void update(float deltaTime) {}
-  
- 
 
 protected:
-    int m_x, m_y;           
-    int m_width, m_height; 
-    Type m_type;               
+    int m_x, m_y;
+    int m_width, m_height;
+    Type m_type;
 };
+
+#endif // OBJECT_H

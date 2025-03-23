@@ -1,53 +1,39 @@
 #include "Application.h"  
 #include <SDL_image.h>  
 
-SDL_Surface* load_surface(const char* path)
+Application::Application()
+    : m_bomber(0, 0, 0, 0), m_brick(0,0,0,0) // Initialize the map with the file path
 {
-    SDL_Surface* image_surface = IMG_Load(path);
-    std::cout << "Attempting to load image from path: " << path << std::endl;
-    if (!image_surface)
+    m_window = SDL_CreateWindow("SDL2 Window",
+        SDL_WINDOWPOS_CENTERED,
+        SDL_WINDOWPOS_CENTERED,
+        680, 480,
+        0);
+
+    if (!m_window)
     {
-        std::cout << "Failed to load image from path: " << path << std::endl;
-        std::cout << "SDL2 Error: " << IMG_GetError() << std::endl;
-        return nullptr;
+        std::cout << "Failed to create window\n";
+        std::cout << "SDL2 Error: " << SDL_GetError() << "\n";
+        return;
     }
 
-    std::cout << "Image loaded successfully from path: " << path << std::endl;
-    return image_surface;
+    m_window_surface = SDL_GetWindowSurface(m_window);
+
+    if (!m_window_surface)
+    {
+        std::cout << "Failed to get window's surface\n";
+        std::cout << "SDL2 Error: " << SDL_GetError() << "\n";
+        return;
+    }
+
+    //m_map.loadMap(); // Load the map at the beginning
 }
 
-
-Application::Application()
-    :m_bomber(0, 0, 0, 0)
-{  
-   m_window = SDL_CreateWindow("SDL2 Window",  
-                               SDL_WINDOWPOS_CENTERED,  
-                               SDL_WINDOWPOS_CENTERED,  
-                               680, 480,  
-                               0);  
-
-   if(!m_window)  
-   {  
-       std::cout << "Failed to create window\n";  
-       std::cout << "SDL2 Error: " << SDL_GetError() << "\n";  
-       return;  
-   }  
-
-   m_window_surface = SDL_GetWindowSurface(m_window);  
-
-   if(!m_window_surface)  
-   {  
-       std::cout << "Failed to get window's surface\n";  
-       std::cout << "SDL2 Error: " << SDL_GetError() << "\n";  
-       return;  
-   }    
-}  
-
-Application::~Application()  
-{  
-   SDL_FreeSurface(m_window_surface);  
-   SDL_DestroyWindow(m_window);  
-}  
+Application::~Application()
+{
+    SDL_FreeSurface(m_window_surface);
+    SDL_DestroyWindow(m_window);
+}
 
 void Application::loop()
 {
@@ -57,7 +43,7 @@ void Application::loop()
 
         while (SDL_PollEvent(&m_window_event) > 0)
         {
-			m_bomber.handleInput(m_window_event);
+            m_bomber.handleInput(m_window_event);
             switch (m_window_event.type)
             {
             case SDL_QUIT:
@@ -73,14 +59,16 @@ void Application::loop()
 
 void Application::update(float delta_time)
 {
-	m_bomber.update(delta_time);
+    m_bomber.update(delta_time);
+	
 }
 
-
-void Application::draw()  
+void Application::draw()
 {
-   SDL_FillRect(m_window_surface, NULL, SDL_MapRGB(m_window_surface->format, 0, 0, 0));
-   m_bomber.draw(m_window_surface);
-   
-   SDL_UpdateWindowSurface(m_window);  
+    SDL_FillRect(m_window_surface, NULL, SDL_MapRGB(m_window_surface->format, 255, 153, 204));
+	m_brick.draw(m_window_surface);
+    
+    m_bomber.draw(m_window_surface);
+
+    SDL_UpdateWindowSurface(m_window);
 }
