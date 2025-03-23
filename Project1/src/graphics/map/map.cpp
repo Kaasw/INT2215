@@ -29,16 +29,16 @@ bool Map::loadMap(const std::string& filePath) {
 
     // Read the file line by line
     while (std::getline(file, line)) {
-        std::vector<Brick*> row;
+        std::vector<Object*> row;
 
         // Process each character in the line
         for (size_t x = 0; x < line.length(); x++) {
-            Brick* brick = nullptr;
+            Object* object = nullptr;
 
             // Check if the character represents a brick (assuming '1' means brick)
             if (line[x] == 'B') {
                 // Create a new brick at the appropriate position
-                brick = new Brick(
+                object = new Brick(
                     x * m_brickWidth,      // x position
                     y * m_brickHeight,     // y position
                     m_brickWidth,          // width
@@ -46,11 +46,22 @@ bool Map::loadMap(const std::string& filePath) {
                 );
 
                 // Add the brick to our flat list for easy access
-                m_bricks.push_back(brick);
+                m_bricks.push_back(object);
             }
 
+			else if (line[x] == 'G') {
+				// Create a new grass at the appropriate position
+				object = new Grass(
+					x * m_brickWidth,      // x position
+					y * m_brickHeight,     // y position
+					m_brickWidth,          // width
+					m_brickHeight          // height
+				);
+                m_bricks.push_back(object);
+			}
+
             // Add the brick (or nullptr for empty space) to the row
-            row.push_back(brick);
+            row.push_back(object);
         }
 
         // Add the row to the map data
@@ -70,18 +81,24 @@ void Map::draw(SDL_Surface* window_surface) {
     // Draw all bricks using the 2D grid structure to ensure correct positioning
     for (size_t y = 0; y < m_mapData.size(); y++) {
         for (size_t x = 0; x < m_mapData[y].size(); x++) {
-            Brick* brick = m_mapData[y][x];
-            if (brick) {
+            Object* object = m_mapData[y][x];
+            Brick* brick = dynamic_cast<Brick*>(object);
+			Grass* grass = dynamic_cast<Grass*>(object);
+            if (brick) {  // If the cast is successful, it's a Brick object
                 brick->draw(window_surface);
+            }
+            else if (grass) {
+                grass->draw(window_surface);
             }
         }
     }
 }
 
 
+
 void Map::clearMap() {
 
-    for (Brick* brick : m_bricks) {
+    for (Object* brick : m_bricks) {
         delete brick;
     }
 

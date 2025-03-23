@@ -27,9 +27,3 @@ SDL_Rect Object::getRect() const
 }
 
 
-void Object::draw(SDL_Surface* window_surface)
-{
-    SDL_Rect object_position = getRect();
-
-    object_spritesheet.draw_selected_sprite(window_surface, &object_position, 2.0f);
-}
