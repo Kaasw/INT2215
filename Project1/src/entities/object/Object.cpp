@@ -8,6 +8,7 @@ Object::Object(int x, int y, int width, int height, Type type)
     , m_type(type)
 
 {
+
 }
 
 Object::~Object()

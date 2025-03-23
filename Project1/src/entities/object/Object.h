@@ -2,7 +2,7 @@
 #define OBJECT_H
 
 #include <SDL.h>
-#include "../../graphics/sprite/SpriteSheet.h"  
+#include "src/graphics/sprite/SpriteSheet.h"  
 
 class Object {
 public:

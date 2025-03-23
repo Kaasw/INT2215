@@ -1,7 +1,7 @@
 #pragma once  
 #include <SDL.h>  
-#include "../../graphics/sprite/SpriteSheet.h"  
-#include "../object/Object.h"  
+#include "src/graphics/sprite/SpriteSheet.h"  
+#include "src/entities/object/Object.h"  
 
 class Grass : public Object {
 public:
