@@ -21,6 +21,9 @@
     <ClInclude Include="include\Bomber.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\SpriteSheet.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -30,6 +33,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Bomber.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SpriteSheet.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -53,6 +59,9 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="assets\texture\stick_figure.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\texture\Player.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

@@ -1,5 +1,6 @@
 #pragma once
 #include <SDL.h>
+#include "SpriteSheet.h"
 
 class Bomber {
 public:
@@ -20,7 +21,8 @@ public:
 private:
 private:
 	Direction	m_direction;
-	SDL_Surface* m_image;
+	int 	   m_spritesheet_column;
+	Spritesheet m_image;
 	SDL_Rect     m_position;
 	double       m_x;
 	double       m_y;

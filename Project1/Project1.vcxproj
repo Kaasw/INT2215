@@ -136,11 +136,13 @@
   <ItemGroup>
     <ClInclude Include="include\Application.h" />
     <ClInclude Include="include\Bomber.h" />
+    <ClInclude Include="include\SpriteSheet.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Application.cpp" />
     <ClCompile Include="src\Bomber.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\SpriteSheet.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="assets\textures\classic.pdn" />
@@ -151,6 +153,7 @@
     <Image Include="assets\stick_figure.bmp" />
     <Image Include="assets\textures\classic.png" />
     <Image Include="assets\texture\classic.png" />
+    <Image Include="assets\texture\Player.png" />
     <Image Include="assets\texture\stick_figure.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
