@@ -3,7 +3,7 @@
 #pragma once
 
 #include <SDL.h>
-#include "Bomber.h"
+#include "../entities/player/Bomber.h"
 #include <iostream>
 
 class Application
@@ -13,7 +13,7 @@ public:
     ~Application();
 
     void loop();
-    void update(double delta_time);
+    void update(float delta_time);
     void draw();
 private:
 	Bomber m_bomber;

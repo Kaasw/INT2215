@@ -15,13 +15,19 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\Application.h">
+    <ClInclude Include="src\runner\Application.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\Bomber.h">
+    <ClInclude Include="src\entities\player\Bomber.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\SpriteSheet.h">
+    <ClInclude Include="src\graphics\sprite\SpriteSheet.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\graphics\map\map.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\entities\object\Object.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -29,13 +35,19 @@
     <ClCompile Include="src\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Application.cpp">
+    <ClCompile Include="src\runner\Application.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Bomber.cpp">
+    <ClCompile Include="src\entities\player\Bomber.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\SpriteSheet.cpp">
+    <ClCompile Include="src\graphics\sprite\SpriteSheet.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\map\map.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\entities\object\Object.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -1,4 +1,4 @@
-#include "../include/Bomber.h"
+#include "Bomber.h"
 #include <SDL_image.h>
 #include <iostream>
 
@@ -7,51 +7,41 @@ int const SPRITESHEET_LEFT = 3;
 int const SPRITESHEET_RIGHT = 1;
 int const SPRITESHEET_DOWN = 2;
 
-Bomber::Bomber() : m_image("assets/texture/Player.png", 4, 4)
+Bomber::Bomber(int x, int y, int w, int h)
+	:Object(x, y, w, h, Type::PLAYER)
+	, m_direction(Direction::NONE)
+	, m_spritesheet_column(0)
+	, m_spritesheet("assets/texture/Player.png", 4, 4)
 {
-	m_position.x = 0;
-	m_position.y = 0;
-	m_position.w = 22;
-	m_position.h = 43;
-
-	m_x = 0.0;
-	m_y = 0.0;
-
-	m_direction = Direction::NONE;
-
-	m_image.select_sprite(0, 2);
-	m_spritesheet_column = 0;
 }
 
-void Bomber::update(double delta_time) {
+void Bomber::update(float delta_time) {
 
 	switch (m_direction)
 	{
 	case Direction::NONE:
 		m_x += 0.0;
 		m_y += 0.0;
-		m_image.select_sprite(0, 0);
+		m_spritesheet.select_sprite(1, 0);
 		break;
 	case Direction::UP:
 		m_y = m_y - (500.0 * delta_time);
-		m_image.select_sprite(SPRITESHEET_UP, m_spritesheet_column);
+		m_spritesheet.select_sprite(SPRITESHEET_UP, m_spritesheet_column);
 		break;
 	case Direction::DOWN:
 		m_y = m_y + (500.0 * delta_time);
-		m_image.select_sprite(SPRITESHEET_DOWN, m_spritesheet_column);
+		m_spritesheet.select_sprite(SPRITESHEET_DOWN, m_spritesheet_column);
 		break;
 	case Direction::LEFT:
 		m_x = m_x - (500.0 * delta_time);
-		m_image.select_sprite(SPRITESHEET_LEFT, m_spritesheet_column);
+		m_spritesheet.select_sprite(SPRITESHEET_LEFT, m_spritesheet_column);
 		break;
 	case Direction::RIGHT:
 		m_x = m_x + (500.0 * delta_time);
-		m_image.select_sprite(SPRITESHEET_RIGHT, m_spritesheet_column);
+		m_spritesheet.select_sprite(SPRITESHEET_RIGHT, m_spritesheet_column);
 		break;
 	}
 
-	m_position.x = m_x;
-	m_position.y = m_y;
 	m_spritesheet_column++;
 	if (m_spritesheet_column > 2)
 		m_spritesheet_column = 0;
@@ -59,7 +49,8 @@ void Bomber::update(double delta_time) {
 
 void Bomber::draw(SDL_Surface* window_surface)
 {
-	m_image.draw_selected_sprite(window_surface, &m_position, 2.0f);
+	SDL_Rect m_position = getRect();
+	m_spritesheet.draw_selected_sprite(window_surface, &m_position, 2.0f);
 	SDL_Delay(100);
 }
 

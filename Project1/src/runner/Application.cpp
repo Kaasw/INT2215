@@ -1,4 +1,4 @@
-#include "../include/Application.h"  
+#include "Application.h"  
 #include <SDL_image.h>  
 
 SDL_Surface* load_surface(const char* path)
@@ -17,7 +17,8 @@ SDL_Surface* load_surface(const char* path)
 }
 
 
-Application::Application()  
+Application::Application()
+    :m_bomber(0, 0, 0, 0)
 {  
    m_window = SDL_CreateWindow("SDL2 Window",  
                                SDL_WINDOWPOS_CENTERED,  
@@ -70,7 +71,7 @@ void Application::loop()
     }
 }
 
-void Application::update(double delta_time)
+void Application::update(float delta_time)
 {
 	m_bomber.update(delta_time);
 }

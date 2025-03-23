@@ -134,15 +134,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="include\Application.h" />
-    <ClInclude Include="include\Bomber.h" />
-    <ClInclude Include="include\SpriteSheet.h" />
+    <ClInclude Include="src\entities\object\Object.h" />
+    <ClInclude Include="src\graphics\map\map.h" />
+    <ClInclude Include="src\runner\Application.h" />
+    <ClInclude Include="src\entities\player\Bomber.h" />
+    <ClInclude Include="src\graphics\sprite\SpriteSheet.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Application.cpp" />
-    <ClCompile Include="src\Bomber.cpp" />
+    <ClCompile Include="src\entities\object\Object.cpp" />
+    <ClCompile Include="src\graphics\map\map.cpp" />
+    <ClCompile Include="src\runner\Application.cpp" />
+    <ClCompile Include="src\entities\player\Bomber.cpp" />
     <ClCompile Include="src\main.cpp" />
-    <ClCompile Include="src\SpriteSheet.cpp" />
+    <ClCompile Include="src\graphics\sprite\SpriteSheet.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="assets\textures\classic.pdn" />

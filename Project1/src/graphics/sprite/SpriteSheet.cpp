@@ -1,4 +1,4 @@
-#include "../include/SpriteSheet.h"
+#include "SpriteSheet.h"
 
 Spritesheet::Spritesheet(char const* path, int row, int column)
 {
@@ -22,16 +22,14 @@ void Spritesheet::select_sprite(int x, int y)
 void Spritesheet::draw_selected_sprite(SDL_Surface* window_surface, SDL_Rect* position, float scale)
 {
     if (scale == 1.0f) {
-        // Use regular blit for no scaling (more efficient)
         SDL_BlitSurface(m_spritesheet_image, &m_clip, window_surface, position);
     }
     else {
-        // Create a temporary rect for the scaled position
+     
         SDL_Rect scaled_position = *position;
         scaled_position.w = static_cast<int>(m_clip.w * scale);
         scaled_position.h = static_cast<int>(m_clip.h * scale);
 
-        // Use SDL_BlitScaled for scaling
         SDL_BlitScaled(m_spritesheet_image, &m_clip, window_surface, &scaled_position);
     }
 }
