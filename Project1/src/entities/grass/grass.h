@@ -3,14 +3,14 @@
 #include "../../graphics/sprite/SpriteSheet.h"  
 #include "../object/Object.h"  
 
-class Brick : public Object {
+class Grass : public Object {
 public:
-    Brick(int x, int y, int w, int h);
-    ~Brick() = default;
+    Grass(int x, int y, int w, int h);
+    ~Grass() = default;
     void draw(SDL_Surface* window_surface);
 
 
 private:
-    Spritesheet brick_spritesheet;
-    int m_brick_columns;
+    Spritesheet grass_spritesheet;
+    int m_grass_columns;
 };

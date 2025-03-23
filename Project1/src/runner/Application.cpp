@@ -2,12 +2,13 @@
 #include <SDL_image.h>  
 
 Application::Application()
-    : m_bomber(0, 0, 0, 0), m_brick(0,0,0,0) // Initialize the map with the file path
+    : m_bomber(0, 0, 0, 0), m_brick(0,0,0,0)
+	
 {
     m_window = SDL_CreateWindow("SDL2 Window",
         SDL_WINDOWPOS_CENTERED,
         SDL_WINDOWPOS_CENTERED,
-        680, 480,
+        640, 480,
         0);
 
     if (!m_window)
@@ -26,7 +27,7 @@ Application::Application()
         return;
     }
 
-    //m_map.loadMap(); // Load the map at the beginning
+    m_map.loadMap("src/levels/level1.txt");
 }
 
 Application::~Application()
@@ -67,6 +68,7 @@ void Application::draw()
 {
     SDL_FillRect(m_window_surface, NULL, SDL_MapRGB(m_window_surface->format, 255, 153, 204));
 	m_brick.draw(m_window_surface);
+	m_map.draw(m_window_surface);
     
     m_bomber.draw(m_window_surface);
 

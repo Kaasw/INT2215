@@ -6,6 +6,7 @@
 
 class Spritesheet {
 public:
+    Spritesheet() = default;
     Spritesheet(const char* path, int rows, int columns);
     ~Spritesheet();
     void select_sprite(int x, int y);

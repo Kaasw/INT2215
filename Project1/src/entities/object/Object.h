@@ -2,6 +2,7 @@
 #define OBJECT_H
 
 #include <SDL.h>
+#include "../../graphics/sprite/SpriteSheet.h"  
 
 class Object {
 public:
@@ -14,6 +15,7 @@ public:
         POWERUP,
         WALL
     };
+
 
     Object(int x, int y, int width, int height, Type type);
     virtual ~Object();
@@ -32,11 +34,13 @@ public:
     void setPosition(int x, int y) { m_x = x; m_y = y; }
 
     virtual void update(float deltaTime) {}
+	void draw(SDL_Surface* window_surface);
 
 protected:
     int m_x, m_y;
     int m_width, m_height;
     Type m_type;
+    Spritesheet object_spritesheet;
 };
 
 #endif // OBJECT_H

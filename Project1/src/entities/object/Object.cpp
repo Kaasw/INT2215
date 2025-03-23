@@ -6,6 +6,7 @@ Object::Object(int x, int y, int width, int height, Type type)
     , m_width(width)
     , m_height(height)
     , m_type(type)
+
 {
 }
 
@@ -24,3 +25,10 @@ SDL_Rect Object::getRect() const
     return rect;
 }
 
+
+void Object::draw(SDL_Surface* window_surface)
+{
+    SDL_Rect object_position = getRect();
+
+    object_spritesheet.draw_selected_sprite(window_surface, &object_position, 2.0f);
+}

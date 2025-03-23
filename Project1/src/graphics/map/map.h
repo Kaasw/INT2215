@@ -1,21 +1,24 @@
 #pragma once
+#include <SDL.h>
 #include <vector>
 #include <string>
-#include <SDL.h>
-#include "../../entities/object/Object.h"
-
-using namespace std;
+#include "src/entities/brick/brick.h"
+#include "src/entities/grass/grass.h"
 
 class Map {
 public:
-    Map(const std::string& filePath);
-    ~Map() = default;
+    Map();
+    ~Map();
 
-    void loadMap();
+    bool loadMap(const std::string& filePath);
+
     void draw(SDL_Surface* window_surface);
 
+
 private:
-    string m_filePath;
-    vector<vector<Object>> m_mapData;
-    SDL_Surface* m_tileSurface;
+    std::vector<std::vector<Brick*>> m_mapData;  
+    std::vector<Brick*> m_bricks; 
+    int m_brickWidth;
+    int m_brickHeight;
+    void clearMap();
 };

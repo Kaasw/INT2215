@@ -2,7 +2,7 @@
 
 #include <SDL.h>
 #include "../entities/player/Bomber.h"
-//#include "../graphics/map/Map.h"
+#include "../graphics/map/map.h"
 #include "../entities/brick/brick.h"
 #include <iostream>
 
@@ -18,7 +18,7 @@ public:
 private:
     Bomber m_bomber;
 	Brick m_brick;
-
+	Map m_map;
     SDL_Window* m_window;
     SDL_Surface* m_window_surface;
     SDL_Event    m_window_event;

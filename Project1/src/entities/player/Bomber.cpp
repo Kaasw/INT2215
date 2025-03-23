@@ -50,7 +50,7 @@ void Bomber::update(float delta_time) {
 void Bomber::draw(SDL_Surface* window_surface)
 {
 	SDL_Rect m_position = getRect();
-	m_spritesheet.draw_selected_sprite(window_surface, &m_position, 4.0f);
+	m_spritesheet.draw_selected_sprite(window_surface, &m_position, 2.0f);
 	SDL_Delay(100);
 }
 
