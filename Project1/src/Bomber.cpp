@@ -3,9 +3,9 @@
 #include <iostream>
 
 int const SPRITESHEET_UP = 0;
-int const SPRITESHEET_LEFT = 1;
-int const SPRITESHEET_RIGHT = 2;
-int const SPRITESHEET_DOWN = 3;
+int const SPRITESHEET_LEFT = 3;
+int const SPRITESHEET_RIGHT = 1;
+int const SPRITESHEET_DOWN = 2;
 
 Bomber::Bomber() : m_image("assets/texture/Player.png", 4, 4)
 {
@@ -34,26 +34,26 @@ void Bomber::update(double delta_time) {
 		break;
 	case Direction::UP:
 		m_y = m_y - (500.0 * delta_time);
-		m_image.select_sprite(m_spritesheet_column, SPRITESHEET_UP);
+		m_image.select_sprite(SPRITESHEET_UP, m_spritesheet_column);
 		break;
 	case Direction::DOWN:
 		m_y = m_y + (500.0 * delta_time);
-		m_image.select_sprite(m_spritesheet_column, SPRITESHEET_DOWN);
+		m_image.select_sprite(SPRITESHEET_DOWN, m_spritesheet_column);
 		break;
 	case Direction::LEFT:
 		m_x = m_x - (500.0 * delta_time);
-		m_image.select_sprite(m_spritesheet_column, SPRITESHEET_LEFT);
+		m_image.select_sprite(SPRITESHEET_LEFT, m_spritesheet_column);
 		break;
 	case Direction::RIGHT:
 		m_x = m_x + (500.0 * delta_time);
-		m_image.select_sprite(m_spritesheet_column, SPRITESHEET_RIGHT);
+		m_image.select_sprite(SPRITESHEET_RIGHT, m_spritesheet_column);
 		break;
 	}
 
 	m_position.x = m_x;
 	m_position.y = m_y;
 	m_spritesheet_column++;
-	if (m_spritesheet_column > 3)
+	if (m_spritesheet_column > 2)
 		m_spritesheet_column = 0;
 }
 
