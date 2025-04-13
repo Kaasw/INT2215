@@ -35,6 +35,13 @@ public:
 
     virtual void update(float deltaTime) {}
 
+	bool isColliding(const Object& other) const {
+		return (m_x < other.m_x + other.m_width &&
+			m_x + m_width > other.m_x &&
+			m_y < other.m_y + other.m_height &&
+			m_y + m_height > other.m_y);
+	}
+
 protected:
     int m_x, m_y;
     int m_width, m_height;

@@ -13,7 +13,8 @@ public:
     bool loadMap(const std::string& filePath);
 
     void draw(SDL_Surface* window_surface);
-
+    
+    const std::vector<Object*>& getObjects() const;
 
 private:
     std::vector<std::vector<Object*>> m_mapData;  

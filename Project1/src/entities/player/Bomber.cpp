@@ -15,37 +15,60 @@ Bomber::Bomber(int x, int y, int w, int h)
 {
 }
 
-void Bomber::update(float delta_time) {
+void Bomber::update(float delta_time, std::vector<Object*>& collidables)
+{
+    float oldX = m_x;
+    float oldY = m_y;
 
-	switch (m_direction)
-	{
-	case Direction::NONE:
-		m_x += 0.0;
-		m_y += 0.0;
-		m_spritesheet.select_sprite(1, 0);
-		break;
-	case Direction::UP:
-		m_y = m_y - (500.0 * delta_time);
-		m_spritesheet.select_sprite(SPRITESHEET_UP, m_spritesheet_column);
-		break;
-	case Direction::DOWN:
-		m_y = m_y + (500.0 * delta_time);
-		m_spritesheet.select_sprite(SPRITESHEET_DOWN, m_spritesheet_column);
-		break;
-	case Direction::LEFT:
-		m_x = m_x - (500.0 * delta_time);
-		m_spritesheet.select_sprite(SPRITESHEET_LEFT, m_spritesheet_column);
-		break;
-	case Direction::RIGHT:
-		m_x = m_x + (500.0 * delta_time);
-		m_spritesheet.select_sprite(SPRITESHEET_RIGHT, m_spritesheet_column);
-		break;
-	}
+    float movement_speed = 500.0f * delta_time;
 
-	m_spritesheet_column++;
-	if (m_spritesheet_column > 2)
-		m_spritesheet_column = 0;
+    switch (m_direction)
+    {
+    case Direction::NONE:
+        m_spritesheet.select_sprite(1, 0);
+        break;
+    case Direction::UP:
+        m_y -= movement_speed;
+        m_spritesheet.select_sprite(SPRITESHEET_UP, m_spritesheet_column);
+        break;
+    case Direction::DOWN:
+        m_y += movement_speed;
+        m_spritesheet.select_sprite(SPRITESHEET_DOWN, m_spritesheet_column);
+        break;
+    case Direction::LEFT:
+        m_x -= movement_speed;
+        m_spritesheet.select_sprite(SPRITESHEET_LEFT, m_spritesheet_column);
+        break;
+    case Direction::RIGHT:
+        m_x += movement_speed;
+        m_spritesheet.select_sprite(SPRITESHEET_RIGHT, m_spritesheet_column);
+		std::cout << m_x << " " << m_y << std::endl;
+        break;
+    }
+
+    SDL_Rect newRect = getRect();
+
+    // Check collisions with all objects
+    for (auto const& obj : collidables)
+    {
+        if (obj == this) continue;
+
+        SDL_Rect otherRect = obj->getRect();
+
+        if (SDL_HasIntersection(&newRect, &otherRect) == SDL_TRUE)
+        {
+            m_x = oldX;
+            m_y = oldY;
+            break;
+        }
+    }
+
+    // Advance animation
+    m_spritesheet_column++;
+    if (m_spritesheet_column > 2)
+        m_spritesheet_column = 0;
 }
+
 
 void Bomber::draw(SDL_Surface* window_surface)
 {

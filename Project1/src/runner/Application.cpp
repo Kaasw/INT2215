@@ -28,6 +28,13 @@ Application::Application()
     }
 
     m_map.loadMap("src/levels/level1.txt");
+    auto& mapObjects = m_map.getObjects();
+    for (auto* obj : mapObjects) {
+        // Example: If you only want "Bricks" to be collidable:
+           if (dynamic_cast<Brick*>(obj)) { m_collidables.push_back(obj); }
+        // Otherwise, add all:
+        //m_collidables.push_back(obj);
+    }
 }
 
 Application::~Application()
@@ -60,7 +67,7 @@ void Application::loop()
 
 void Application::update(float delta_time)
 {
-    m_bomber.update(delta_time);
+    m_bomber.update(delta_time, m_collidables);
 	
 }
 

@@ -102,3 +102,7 @@ void Map::clearMap() {
     m_objects.clear();
     m_mapData.clear();
 }
+
+const std::vector<Object*>& Map::getObjects() const {
+    return m_objects;
+}
