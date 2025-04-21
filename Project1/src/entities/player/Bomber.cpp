@@ -17,7 +17,6 @@ Bomber::Bomber(float x, float y, int w, int h)
 
 void Bomber::update(float delta_time, std::vector<Object*>& collidables)
 {
-	handleInput();
     float oldX = m_x;
     float oldY = m_y;
 
@@ -74,21 +73,24 @@ void Bomber::draw(SDL_Surface* window_surface)
 {
     SDL_Rect m_position = getRect();
 	m_spritesheet.draw_selected_sprite(window_surface, &m_position, 2.0f);
-	SDL_Delay(30);
+	SDL_Delay(100);
 }
 
-void Bomber::handleInput()
+void Bomber::handleInput(SDL_Event& event)
 {
-    const Uint8* keys = SDL_GetKeyboardState(nullptr);
+	switch (event.type)
+	{
+	case SDL_KEYDOWN:
+		Uint8 const* keys = SDL_GetKeyboardState(nullptr);
 
-    if (keys[SDL_SCANCODE_W])
-        m_direction = Direction::UP;
-    else if (keys[SDL_SCANCODE_S])
-        m_direction = Direction::DOWN;
-    else if (keys[SDL_SCANCODE_A])
-        m_direction = Direction::LEFT;
-    else if (keys[SDL_SCANCODE_D])
-        m_direction = Direction::RIGHT;
-    else
-        m_direction = Direction::NONE;
+		if (keys[SDL_SCANCODE_W] == 1)
+			m_direction = Direction::UP;
+		else if (keys[SDL_SCANCODE_S] == 1)
+			m_direction = Direction::DOWN;
+		else if (keys[SDL_SCANCODE_A] == 1)
+			m_direction = Direction::LEFT;
+		else if (keys[SDL_SCANCODE_D] == 1)
+			m_direction = Direction::RIGHT;
+		break;
+	}
 }

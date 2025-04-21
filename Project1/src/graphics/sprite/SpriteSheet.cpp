@@ -31,9 +31,20 @@ void Spritesheet::draw_selected_sprite(SDL_Surface* window_surface, SDL_Rect* po
         SDL_BlitSurface(m_spritesheet_image, &m_clip, window_surface, position);
     }
     else {
+        // Create a centered scaled position
         SDL_Rect scaled_position = *position;
-        scaled_position.w = static_cast<int>(m_clip.w * scale);
-        scaled_position.h = static_cast<int>(m_clip.h * scale);
+        
+        // Calculate scaled dimensions
+        int scaled_width = static_cast<int>(m_clip.w * scale);
+        int scaled_height = static_cast<int>(m_clip.h * scale);
+        
+        // Adjust position to center the sprite in the original position
+        scaled_position.x -= (scaled_width - position->w) / 2;
+        scaled_position.y -= (scaled_height - position->h) / 2;
+        
+        scaled_position.w = scaled_width;
+        scaled_position.h = scaled_height;
+        
         SDL_BlitScaled(m_spritesheet_image, &m_clip, window_surface, &scaled_position);
     }
 }
