@@ -18,7 +18,7 @@ public:
 
    void update(float delta_time, std::vector<Object*>& collidables);
    void draw(SDL_Surface* window_surface);  
-   void handleInput(SDL_Event& event);  
+   void handleInput();  
 
 private:  
    Direction m_direction;  
