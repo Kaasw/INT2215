@@ -3,7 +3,7 @@
 
 using namespace std;
 
-Brick::Brick(int x, int y, int w, int h)
+Brick::Brick(float x, float y, int w, int h)
     : Object(x, y, w, h, Type::WALL)
     , brick_spritesheet("assets/texture/wall.png", 4, 4)
     , m_brick_columns(0)

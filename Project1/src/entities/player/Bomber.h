@@ -13,9 +13,9 @@ public:
        LEFT,  
        RIGHT  
    };  
-   Bomber(int x, int y, int w, int h);  
+   Bomber(float x, float y, int w, int h);
    ~Bomber() = default;  
-   // Bomber.h
+
    void update(float delta_time, std::vector<Object*>& collidables);
    void draw(SDL_Surface* window_surface);  
    void handleInput(SDL_Event& event);  

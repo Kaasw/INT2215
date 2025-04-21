@@ -1,6 +1,6 @@
 #include "Object.h"
 
-Object::Object(int x, int y, int width, int height, Type type)
+Object::Object(float x, float y, int width, int height, Type type)
     : m_x(x)
     , m_y(y)
     , m_width(width)

@@ -7,7 +7,7 @@ int const SPRITESHEET_LEFT = 3;
 int const SPRITESHEET_RIGHT = 1;
 int const SPRITESHEET_DOWN = 2;
 
-Bomber::Bomber(int x, int y, int w, int h)
+Bomber::Bomber(float x, float y, int w, int h)
 	:Object(x, y, w, h, Type::PLAYER)
 	, m_direction(Direction::NONE)
 	, m_spritesheet_column(0)
@@ -33,6 +33,7 @@ void Bomber::update(float delta_time, std::vector<Object*>& collidables)
         break;
     case Direction::DOWN:
         m_y += movement_speed;
+        std::cout << m_x << " " << m_y << std::endl;
         m_spritesheet.select_sprite(SPRITESHEET_DOWN, m_spritesheet_column);
         break;
     case Direction::LEFT:
@@ -48,7 +49,6 @@ void Bomber::update(float delta_time, std::vector<Object*>& collidables)
 
     SDL_Rect newRect = getRect();
 
-    // Check collisions with all objects
     for (auto const& obj : collidables)
     {
         if (obj == this) continue;
@@ -59,11 +59,10 @@ void Bomber::update(float delta_time, std::vector<Object*>& collidables)
         {
             m_x = oldX;
             m_y = oldY;
+			std::cout << m_x << " " << m_y << std::endl;
             break;
         }
     }
-
-    // Advance animation
     m_spritesheet_column++;
     if (m_spritesheet_column > 2)
         m_spritesheet_column = 0;
@@ -72,7 +71,7 @@ void Bomber::update(float delta_time, std::vector<Object*>& collidables)
 
 void Bomber::draw(SDL_Surface* window_surface)
 {
-	SDL_Rect m_position = getRect();
+    SDL_Rect m_position = getRect();
 	m_spritesheet.draw_selected_sprite(window_surface, &m_position, 2.0f);
 	SDL_Delay(100);
 }

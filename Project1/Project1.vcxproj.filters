@@ -30,6 +30,15 @@
     <ClInclude Include="src\entities\object\Object.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\entities\brick\brick.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\entities\grass\wall.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\graphics\sprite\Sprite.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -48,6 +57,15 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\entities\object\Object.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\entities\brick\brick.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\entities\grass\wall.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\sprite\Sprite.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -76,5 +94,14 @@
     <Image Include="assets\texture\Player.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="assets\texture\Grass.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\texture\wall.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="src\levels\level1.txt" />
   </ItemGroup>
 </Project>

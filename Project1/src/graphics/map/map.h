@@ -3,7 +3,7 @@
 #include <vector>
 #include <string>
 #include "src/entities/brick/brick.h"
-#include "src/entities/grass/grass.h"
+#include "src/entities/grass/wall.h"
 
 class Map {
 public:

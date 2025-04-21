@@ -5,7 +5,7 @@
 
 class Brick : public Object {
 public:
-    Brick(int x, int y, int w, int h);
+    Brick(float x, float y, int w, int h);
     ~Brick() = default;
     void draw(SDL_Surface* window_surface);
 
