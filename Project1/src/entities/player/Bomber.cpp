@@ -18,7 +18,7 @@ Bomber::Bomber(float x, float y, int w, int h)
 void Bomber::update(float delta_time, std::vector<Object*>& collidables)
 {
     float vx = 0.0f, vy = 0.0f;
-    const float speed = 500.0f;
+    const float speed = 700.0f;
 
     switch (m_direction)
     {

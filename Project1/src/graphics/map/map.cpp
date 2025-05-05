@@ -42,17 +42,17 @@ bool Map::loadMap(const std::string& filePath) {
                 m_objects.push_back(object);
             }
 
-			//else if (line[x] == 'W') {
+			else if (line[x] == 'W') {
 	
-			//	object = new Wall(
-			//		x * m_brickWidth,   
-			//		y * m_brickHeight,     
-			//		m_brickWidth,
-			//		m_brickHeight
-			//	);
-   //             m_objects.push_back(object);
-   //             std::cout << "Wall at: " << x * m_brickWidth << ", " << y * m_brickHeight << std::endl;
-			//}
+				object = new Wall(
+					x * m_brickWidth,   
+					y * m_brickHeight,     
+					m_brickWidth,
+					m_brickHeight
+				);
+                m_objects.push_back(object);
+                std::cout << "Wall at: " << x * m_brickWidth << ", " << y * m_brickHeight << std::endl;
+			}
 
 
             row.push_back(object);

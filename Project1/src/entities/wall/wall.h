@@ -1,3 +1,4 @@
+#pragma once
 #pragma once  
 #include <SDL.h>  
 #include "src/graphics/sprite/SpriteSheet.h"  

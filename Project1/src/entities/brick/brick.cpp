@@ -4,8 +4,8 @@
 using namespace std;
 
 Brick::Brick(float x, float y, int w, int h)
-    : Object(x, y, w, h, Type::WALL)
-    , brick_spritesheet("assets/texture/wall.png", 4, 4)
+    : Object(x, y, w, h, Type::BRICK)
+    , brick_spritesheet("assets/texture/brick.png", 4, 4)
     , m_brick_columns(0)
 {
     brick_spritesheet.select_sprite(0, 0);
