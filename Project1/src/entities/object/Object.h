@@ -34,11 +34,16 @@ public:
 
     virtual void update(float deltaTime) {}
 
+
+
+
+
 protected:
     float m_x, m_y;
     int m_width, m_height;
     Type m_type;
-
+    void moveX(float dx, const std::vector<Object*>& collidables);
+    void moveY(float dy, const std::vector<Object*>& collidables);
    
 };
 

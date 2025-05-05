@@ -1,6 +1,5 @@
 #include "Application.h"  
 #include <SDL_image.h>  
-#include "src/entities/object/Object.h" 
 
 Application::Application()
     : m_bomber(32,32,32,32)
@@ -31,18 +30,14 @@ Application::Application()
     m_map.loadMap("src/levels/level1.txt");
     auto& mapObjects = m_map.getObjects();
     for (auto* obj : mapObjects) {
-        if (dynamic_cast<Brick*>(obj) || dynamic_cast<Wall*>(obj)) {
-            m_collidables.push_back(obj);
-        }
+           if (dynamic_cast<Brick*>(obj)) { m_collidables.push_back(obj); }
+		   else if (dynamic_cast<Wall*>(obj)) { m_collidables.push_back(obj); }
         //m_collidables.push_back(obj);
     }
 }
 
 Application::~Application()
 {
-    for (auto* obj : m_collidables) {
-        delete obj;
-    }
     SDL_FreeSurface(m_window_surface);
     SDL_DestroyWindow(m_window);
 }
@@ -72,20 +67,6 @@ void Application::loop()
 void Application::update(float delta_time)
 {
     m_bomber.update(delta_time, m_collidables);
-    for (auto it = m_collidables.begin(); it != m_collidables.end(); )
-    {
-        Brick* b = dynamic_cast<Brick*>(*it);
-        if (b && b->getDestruct())
-        {
-            m_map.removeObject(b);
-            delete b;
-            it = m_collidables.erase(it);
-        }
-        else
-        {
-            ++it;
-        }
-    }
 	
 }
 

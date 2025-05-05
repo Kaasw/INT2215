@@ -85,19 +85,6 @@ void Map::draw(SDL_Surface* window_surface) {
     }
 }
 
-void Map::removeObject(Object* obj) {
-    // 1) erase from the flat list
-    auto it = std::remove(m_objects.begin(), m_objects.end(), obj);
-    m_objects.erase(it, m_objects.end());
-
-    // 2) null out any grid cell that pointed at it
-    for (auto& row : m_mapData) {
-        for (auto& cell : row) {
-            if (cell == obj)
-                cell = nullptr;
-        }
-    }
-}
 
 
 void Map::clearMap() {

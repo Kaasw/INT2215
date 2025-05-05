@@ -18,5 +18,3 @@ void Brick::draw(SDL_Surface* window_surface)
 
     brick_spritesheet.draw_selected_sprite(window_surface, &brick_position, 2.0f);
 }
-
-

@@ -16,7 +16,6 @@ public:
     void draw(SDL_Surface* window_surface);
     
     const std::vector<Object*>& getObjects() const;
-    void removeObject(Object* obj);
 
 private:
     std::vector<std::vector<Object*>> m_mapData;  
