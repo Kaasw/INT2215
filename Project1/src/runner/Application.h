@@ -3,7 +3,12 @@
 #include <SDL.h>
 #include "../entities/player/Bomber.h"
 #include "../graphics/map/map.h"
+#include "../entities/brick/brick.h"
+#include "../entities/wall/wall.h"
+#include "../entities/object/Object.h"
+#include <algorithm>  
 #include <iostream>
+#include <list>
 
 class Application
 {
@@ -20,5 +25,5 @@ private:
     SDL_Window* m_window;
     SDL_Surface* m_window_surface;
     SDL_Event    m_window_event;
-    std::vector<Object*> m_collidables;
+    std::list<Object*> m_collidables;
 };

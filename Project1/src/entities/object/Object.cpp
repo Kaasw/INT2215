@@ -26,40 +26,4 @@ SDL_Rect Object::getRect() const
     return rect;
 }
 
-void Object::moveX(float dx, const std::vector<Object*>& collidables)
-{
-	m_x += dx;
-	SDL_Rect rect = getRect();
-	for (auto* obj : collidables)
-	{
-		if (obj == this) continue;
-		SDL_Rect other = obj->getRect();
-		if (SDL_HasIntersection(&rect, &other))
-		{
-			if (dx > 0)
-				m_x = other.x - rect.w;
-			else
-				m_x = other.x + other.w;
-		}
-	}
-}
-
-void Object::moveY(float dy, const std::vector<Object*>& collidables)
-{
-	m_y += dy;
-	SDL_Rect rect = getRect();
-	for (auto* obj : collidables)
-	{
-		if (obj == this) continue;
-		SDL_Rect other = obj->getRect();
-		if (SDL_HasIntersection(&rect, &other))
-		{
-			if (dy > 0)
-				m_y = other.y - rect.h;
-			else
-				m_y = other.y + other.h;
-		}
-	}
-}
-
 
