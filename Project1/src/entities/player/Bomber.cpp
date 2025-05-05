@@ -19,10 +19,6 @@ void Bomber::update(float delta_time, std::vector<Object*>& collidables)
 {
     float vx = 0.0f, vy = 0.0f;
     const float speed = 500.0f;
-    float oldX = m_x;
-    float oldY = m_y;
-
-    float movement_speed = 32.0f;
 
     switch (m_direction)
     {
@@ -47,45 +43,8 @@ void Bomber::update(float delta_time, std::vector<Object*>& collidables)
         break;
     }
 
-    vx *= speed * delta_time;  // now in pixels this frame
-    vy *= speed * delta_time;
-
-    // 2) Move horizontally and resolve collisions on X only
-    m_x += vx;
-
-    //SDL_Rect newRect = getRect();
-
-    SDL_Rect rect = getRect();
-    for (auto* obj : collidables)
-    {
-        if (obj == this) continue;
-        SDL_Rect other = obj->getRect();
-        if (SDL_HasIntersection(&rect, &other))
-        {
-            // push back just to the edge
-            if (vx > 0)
-                m_x = other.x - rect.w;
-            else if (vx < 0)
-                m_x = other.x + other.w;
-            break;
-        }
-    }
-
-    m_y += vy;
-    rect = getRect();
-    for (auto* obj : collidables)
-    {
-        if (obj == this) continue;
-        SDL_Rect other = obj->getRect();
-        if (SDL_HasIntersection(&rect, &other))
-        {
-            if (vy > 0)
-                m_y = other.y - rect.h;
-            else if (vy < 0)
-                m_y = other.y + other.h;
-            break;
-        }
-    }
+    moveX(vx * speed * delta_time, collidables);
+    moveY(vy * speed * delta_time, collidables);
     m_spritesheet_column++;
     if (m_spritesheet_column > 2)
         m_spritesheet_column = 0;

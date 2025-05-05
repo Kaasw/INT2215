@@ -3,6 +3,7 @@
 
 #include <SDL.h>
 #include "src/graphics/sprite/SpriteSheet.h"  
+#include <vector>
 
 class Object {
 public:
@@ -33,9 +34,7 @@ public:
 
     virtual void update(float deltaTime) {}
 
-    bool destructible() {
 
-    }
 
 
 
@@ -43,6 +42,8 @@ protected:
     float m_x, m_y;
     int m_width, m_height;
     Type m_type;
+    void moveX(float dx, const std::vector<Object*>& collidables);
+    void moveY(float dy, const std::vector<Object*>& collidables);
    
 };
 
