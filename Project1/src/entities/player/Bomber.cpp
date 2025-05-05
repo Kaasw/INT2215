@@ -1,6 +1,8 @@
 #include "Bomber.h"
+#include "src/entities/brick/brick.h"
 #include <SDL_image.h>
 #include <iostream>
+#include <algorithm> // For std::remove
 
 int const SPRITESHEET_UP = 0;
 int const SPRITESHEET_LEFT = 3;
@@ -15,10 +17,10 @@ Bomber::Bomber(float x, float y, int w, int h)
 {
 }
 
-void Bomber::update(float delta_time, std::vector<Object*>& collidables)
+void Bomber::update(float delta_time, std::list<Object*>& collidables)
 {
     float vx = 0.0f, vy = 0.0f;
-    const float speed = 700.0f;
+    const float speed = 2000.0f;
 
     switch (m_direction)
     {
@@ -48,6 +50,9 @@ void Bomber::update(float delta_time, std::vector<Object*>& collidables)
     m_spritesheet_column++;
     if (m_spritesheet_column > 2)
         m_spritesheet_column = 0;
+
+
+
 }
 
 
@@ -75,4 +80,52 @@ void Bomber::handleInput(SDL_Event& event)
 			m_direction = Direction::RIGHT;
 		break;
 	}
+}
+
+
+void Bomber::moveX(float dx, std::list<Object*>& collidables)
+{
+	m_x += dx;
+	SDL_Rect rect = getRect();
+	for (auto* obj : collidables)
+	{
+		if (obj == this) continue;
+		SDL_Rect other = obj->getRect();
+		if (SDL_HasIntersection(&rect, &other))
+		{
+			std::cout << "Collision detected X!" << std::endl;
+			if (dx > 0)
+				m_x = other.x - rect.w;
+			else
+				m_x = other.x + other.w;
+		}
+	}
+}
+
+void Bomber::moveY(float dy, std::list<Object*>& collidables)
+{
+    m_y += dy;
+    SDL_Rect me = getRect();
+
+    for (auto* obj : collidables)
+    {
+        if (obj == this) continue;
+        SDL_Rect other = obj->getRect();
+
+        if (SDL_HasIntersection(&me, &other))
+        {
+            // if it's a brick, mark it for destruction
+            if (obj->getType() == Type::BRICK)
+            {
+                std::cout << "Brick hit – marking for removal\n";
+                dynamic_cast<Brick*>(obj)->setDestroy();
+            }
+
+            // push bomber back outside
+            if (dy > 0)    m_y = other.y - me.h;
+            else           m_y = other.y + other.h;
+
+            break;  // resolve only one collision per axis
+        }
+    }
 }
