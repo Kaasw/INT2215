@@ -4,6 +4,7 @@
 #include <string>
 #include "src/entities/brick/brick.h"
 #include "src/entities/wall/wall.h"
+#include "src/entities/baloon/baloon.h"
 
 
 class Map {

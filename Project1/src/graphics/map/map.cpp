@@ -54,6 +54,18 @@ bool Map::loadMap(const std::string& filePath) {
                 std::cout << "Wall at: " << x * m_brickWidth << ", " << y * m_brickHeight << std::endl;
 			}
 
+            else if (line[x] == 'Q') {
+
+                object = new Baloon(
+                    x * m_brickWidth,
+                    y * m_brickHeight,
+                    m_brickWidth,
+                    m_brickHeight
+                );
+                m_objects.push_back(object);
+                std::cout << "Baloon at: " << x * m_brickWidth << ", " << y * m_brickHeight << std::endl;
+            }
+
 
             row.push_back(object);
         }
@@ -74,6 +86,7 @@ void Map::draw(SDL_Surface* window_surface) {
             Object* object = m_mapData[y][x];
             Brick* brick = dynamic_cast<Brick*>(object);
 			Wall* wall = dynamic_cast<Wall*>(object);
+			Baloon* baloon = dynamic_cast<Baloon*>(object);
 
             if (brick) { 
                 brick->draw(window_surface);
@@ -81,6 +94,10 @@ void Map::draw(SDL_Surface* window_surface) {
             else if (wall) {
                 wall->draw(window_surface);
             }
+			else if (baloon) {
+				baloon->draw(window_surface);
+			}
+
         }
     }
 }

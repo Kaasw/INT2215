@@ -8,6 +8,7 @@
 #include "../entities/object/Object.h"
 #include "../entities/bomb/bomb.h"
 #include "../entities/explosion/explosion.h"
+#include "../entities/baloon/baloon.h"
 #include <algorithm>  
 #include <iostream>
 #include <list>
@@ -32,4 +33,5 @@ private:
     std::list<Object*> m_collidables;
     std::list<Bomb*> m_bombs;
     std::list<Explosion*> m_explosions;
+	std::list<Baloon*> m_baloons;
 };

@@ -9,7 +9,7 @@ class Object {
 public:
     enum class Type {
         PLAYER,
-        ENEMY,
+        BALOON,
         BRICK,
         GRASS,
         BOMB,

@@ -42,6 +42,9 @@ Application::Application()
         if (dynamic_cast<Brick*>(obj) || dynamic_cast<Wall*>(obj)) {
             m_collidables.push_back(obj);
         }
+        else if (auto* bal = dynamic_cast<Baloon*>(obj)) {
+            m_baloons.push_back(bal);
+        }
         //m_collidables.push_back(obj);
     }
    
@@ -164,6 +167,18 @@ void Application::update(float delta_time)
         }
 
     }
+
+    for (auto it = m_baloons.begin(); it != m_baloons.end(); /*no ++it*/)
+    {
+        Baloon* b = (*it);
+        b->update(delta_time, m_collidables, m_bombs);
+        if (b->isDestroyed)
+        {
+            it = m_baloons.erase(it);
+            continue;
+        }
+        ++it;
+    }
 }
 
 
@@ -199,7 +214,8 @@ void Application::draw()
         if (!blocked)
             e->draw(m_window_surface);
     }
-
+    for (auto* bal : m_baloons)
+        bal->draw(m_window_surface);
     m_bomber.draw(m_window_surface);
     SDL_UpdateWindowSurface(m_window);
 }

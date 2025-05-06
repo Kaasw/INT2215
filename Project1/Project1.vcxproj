@@ -134,6 +134,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\entities\baloon\baloon.h" />
     <ClInclude Include="src\entities\bomb\bomb.h" />
     <ClInclude Include="src\entities\brick\brick.h" />
     <ClInclude Include="src\entities\explosion\explosion.h" />
@@ -146,6 +147,7 @@
     <ClInclude Include="src\graphics\sprite\SpriteSheet.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\entities\baloon\baloon.cpp" />
     <ClCompile Include="src\entities\bomb\bomb.cpp" />
     <ClCompile Include="src\entities\brick\brick.cpp" />
     <ClCompile Include="src\entities\explosion\explosion.cpp" />
