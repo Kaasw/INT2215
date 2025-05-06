@@ -12,11 +12,27 @@ Brick::Brick(float x, float y, int w, int h)
 }
 
 
-void Brick::draw(SDL_Surface* window_surface)
+bool Brick::updateBrick(float delta_time)
 {
-    SDL_Rect brick_position = getRect();
+    if (!isDestroyed)
+        return false;
 
-    brick_spritesheet.draw_selected_sprite(window_surface, &brick_position, 2.0f);
+    m_destroy_timer += delta_time;
+    if (m_destroy_timer >= FRAME_DURATION && m_brick_columns < DESTROY_FRAMES)
+    {
+        m_destroy_timer -= FRAME_DURATION;
+        ++m_brick_columns;  // 1?2?3
+        brick_spritesheet.select_sprite(0, m_brick_columns);
+    }
+
+    return (m_brick_columns >= DESTROY_FRAMES);
 }
 
-
+void Brick::draw(SDL_Surface* surface)
+{
+    //if (m_brick_columns <= DESTROY_FRAMES)
+    //{
+        SDL_Rect dst = getRect();
+        brick_spritesheet.draw_selected_sprite(surface, &dst, 2.0f);
+    //}
+}

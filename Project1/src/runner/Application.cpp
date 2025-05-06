@@ -72,24 +72,24 @@ void Application::loop()
 void Application::update(float delta_time)
 {
     m_bomber.update(delta_time, m_collidables);
-        for (auto it = m_collidables.begin(); it != m_collidables.end(); )
+
+    for (auto it = m_collidables.begin(); it != m_collidables.end(); )
     {
         Brick* b = dynamic_cast<Brick*>(*it);
         if (b && b->getDestruct())
         {
+            if (b->updateBrick(delta_time))
+            {
                 m_map.removeObject(b);
                 delete b;
                 it = m_collidables.erase(it);
                 continue;
-            
+            }
         }
-        else
-        {
-            ++it;
-        }
+        ++it;
     }
-	
 }
+
 
 void Application::draw()
 {
