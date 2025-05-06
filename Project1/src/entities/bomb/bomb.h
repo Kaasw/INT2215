@@ -1,24 +1,32 @@
-﻿//#pragma once
-//#include "src/graphics/sprite/SpriteSheet.h"  
-//#include "src/entities/object/Object.h"  
-//#include <SDL.h>
-//
-//class Bomb : public Object {
-//public:
-//    Bomb(float x, float y, int w, int h);
-//    ~Bomb();
-//
-//    // advance your fuse timer
-//    void update(float delta_time);
-//
-//    // draw the bomb sprite
-//    void draw(SDL_Surface* surface) override;
-//
-//    // query whether it’s gone off
-//    bool hasExploded() const { return m_timer <= 0.f; }
-//
-//private:
-//    float       m_timer = 2.0f;            // 2‑second fuse
-//    SDL_Surface* m_sprite = nullptr;
-//};
-//#pragma once
+﻿#pragma once  
+#include <SDL.h>  
+#include <iostream>
+#include "src/graphics/sprite/SpriteSheet.h"  
+#include "src/entities/object/Object.h"  
+
+class Bomb : public Object {
+public:
+    Bomb(float x, float y, int w, int h);
+    ~Bomb() = default;
+    void draw(SDL_Surface* window_surface);
+    bool isDestroyed = false;
+    void setDestroy() {
+        isDestroyed = true;
+    };
+    bool getDestruct() {
+        return isDestroyed;
+    }
+    static constexpr int FRAME_COUNT = 3;    // number of frames in sprite
+    static constexpr int MAX_LOOPS = 3;    // how many cycles before removal
+    bool updateBomb(float delta_time);
+    int   m_loop_count = 0;
+
+private:
+    Spritesheet bomb_spritesheet;
+    int m_bomb_columns;
+    bool m_requestBomb = false;
+    float m_destroy_timer = 0.f;       
+    static constexpr float FRAME_DURATION = 0.05f; 
+    static constexpr int   LOOP_FRAME = 9;  
+
+};

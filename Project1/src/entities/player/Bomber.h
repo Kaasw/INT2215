@@ -2,6 +2,7 @@
 #include <SDL.h>  
 #include "src/graphics/sprite/SpriteSheet.h"  
 #include "src/entities/object/Object.h"  
+#include "src/entities/bomb/bomb.h"
 #include <list>
 
 class Bomber: public Object {  
@@ -26,4 +27,5 @@ private:
    Direction m_direction;  
    int m_spritesheet_column;  
    Spritesheet m_spritesheet;  
+   bool m_requestBomb = false;
 };

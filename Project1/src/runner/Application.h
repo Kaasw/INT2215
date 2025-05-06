@@ -6,6 +6,7 @@
 #include "../entities/brick/brick.h"
 #include "../entities/wall/wall.h"
 #include "../entities/object/Object.h"
+#include "../entities/bomb/bomb.h"
 #include <algorithm>  
 #include <iostream>
 #include <list>
@@ -26,4 +27,5 @@ private:
     SDL_Surface* m_window_surface;
     SDL_Event    m_window_event;
     std::list<Object*> m_collidables;
+    std::list<Object*> m_bombs;
 };

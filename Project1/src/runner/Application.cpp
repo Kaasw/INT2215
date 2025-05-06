@@ -73,6 +73,8 @@ void Application::update(float delta_time)
 {
     m_bomber.update(delta_time, m_collidables);
 
+
+
     for (auto it = m_collidables.begin(); it != m_collidables.end(); )
     {
         Brick* b = dynamic_cast<Brick*>(*it);
@@ -85,6 +87,21 @@ void Application::update(float delta_time)
                 it = m_collidables.erase(it);
                 continue;
             }
+
+        }
+        ++it;
+    }
+
+    for (auto it = m_collidables.begin(); it != m_collidables.end(); )
+    {
+        if (auto* bomb = dynamic_cast<Bomb*>(*it))
+        {
+            if (bomb->updateBomb(delta_time))
+            {
+                delete bomb;
+                it = m_collidables.erase(it);
+                continue;
+            }
         }
         ++it;
     }
@@ -93,10 +110,19 @@ void Application::update(float delta_time)
 
 void Application::draw()
 {
-    SDL_FillRect(m_window_surface, NULL, SDL_MapRGB(m_window_surface->format, 255, 153, 204));
-	
-	m_map.draw(m_window_surface);
-    
+    // clear/background
+    SDL_FillRect(m_window_surface, NULL,
+        SDL_MapRGB(m_window_surface->format, 255, 153, 204));
+
+    m_map.draw(m_window_surface);
+
+    for (auto* obj : m_collidables) {
+        if (obj->getType() == Object::Type::BOMB) {
+            dynamic_cast<Bomb*>(obj)->draw(m_window_surface);
+        }
+    }
+
+    // draw player
     m_bomber.draw(m_window_surface);
 
     SDL_UpdateWindowSurface(m_window);

@@ -13,6 +13,7 @@ Bomber::Bomber(float x, float y, int w, int h)
 	:Object(x, y, w, h, Type::PLAYER)
 	, m_direction(Direction::NONE)
 	, m_spritesheet_column(0)
+	, m_requestBomb(false)
 	, m_spritesheet("assets/texture/Player.png", 4, 4)
 {
 }
@@ -21,6 +22,14 @@ void Bomber::update(float delta_time, std::list<Object*>& collidables)
 {
     float vx = 0.0f, vy = 0.0f;
     const float speed = 700.0f;
+
+    if (m_requestBomb) {
+        float tx = std::floor(m_x / m_width) * m_width;
+        float ty = std::floor(m_y / m_height) * m_height;
+        Bomb* bomb = new Bomb(tx, ty, m_width, m_height);
+        collidables.push_back(bomb);
+        m_requestBomb = false;
+    }
 
     switch (m_direction)
     {
@@ -78,6 +87,8 @@ void Bomber::handleInput(SDL_Event& event)
 			m_direction = Direction::LEFT;
 		else if (keys[SDL_SCANCODE_D] == 1)
 			m_direction = Direction::RIGHT;
+        else if (keys[SDL_SCANCODE_SPACE])
+            m_requestBomb = true;
 		break;
 	}
 }
