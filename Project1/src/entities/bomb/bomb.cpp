@@ -24,12 +24,12 @@ bool Bomb::updateBomb(float delta_time)
             m_bomb_columns = 0;
             ++m_loop_count;
             if (m_loop_count >= MAX_LOOPS)
-                return true;             // done all loops ? remove bomb
+                return true;            
         }
 
         bomb_spritesheet.select_sprite(0, m_bomb_columns);
     }
-    return false;   // keep alive
+    return false;   
 }
 
 

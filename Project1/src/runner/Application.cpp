@@ -71,8 +71,7 @@ void Application::loop()
 
 void Application::update(float delta_time)
 {
-    m_bomber.update(delta_time, m_collidables);
-
+    m_bomber.update(delta_time, m_collidables, m_bombs);
 
 
     for (auto it = m_collidables.begin(); it != m_collidables.end(); )
@@ -92,15 +91,29 @@ void Application::update(float delta_time)
         ++it;
     }
 
-    for (auto it = m_collidables.begin(); it != m_collidables.end(); )
+    SDL_Rect playerRect = m_bomber.getRect();
+    for (auto it = m_bombs.begin(); it != m_bombs.end(); /*no ++it*/)
     {
-        if (auto* bomb = dynamic_cast<Bomb*>(*it))
+        Bomb* bomb = *it;
+
+        // advance animation; if it's done, remove it entirely
+        if (bomb->updateBomb(delta_time))
         {
-            if (bomb->updateBomb(delta_time))
+            m_map.removeObject(bomb);
+            m_collidables.remove(bomb);
+            delete bomb;
+            it = m_bombs.erase(it);
+            continue;
+        }
+
+        // if still passable, check whether the player’s AABB is no longer intersecting
+        if (bomb->isPassable)
+        {
+            SDL_Rect br = bomb->getRect();
+            if (!SDL_HasIntersection(&playerRect, &br))
             {
-                delete bomb;
-                it = m_collidables.erase(it);
-                continue;
+                bomb->isPassable = false;
+                m_collidables.push_back(bomb);
             }
         }
         ++it;
@@ -110,20 +123,15 @@ void Application::update(float delta_time)
 
 void Application::draw()
 {
-    // clear/background
-    SDL_FillRect(m_window_surface, NULL,
+    SDL_FillRect(m_window_surface, nullptr,
         SDL_MapRGB(m_window_surface->format, 255, 153, 204));
 
     m_map.draw(m_window_surface);
 
-    for (auto* obj : m_collidables) {
-        if (obj->getType() == Object::Type::BOMB) {
-            dynamic_cast<Bomb*>(obj)->draw(m_window_surface);
-        }
-    }
+    // draw bombs (even if they’re still passable)
+    for (auto* bomb : m_bombs)
+        bomb->draw(m_window_surface);
 
-    // draw player
     m_bomber.draw(m_window_surface);
-
     SDL_UpdateWindowSurface(m_window);
 }

@@ -18,7 +18,7 @@ Bomber::Bomber(float x, float y, int w, int h)
 {
 }
 
-void Bomber::update(float delta_time, std::list<Object*>& collidables)
+void Bomber::update(float delta_time, std::list<Object*>& collidables, std::list<Bomb*>& m_bombs)
 {
     float vx = 0.0f, vy = 0.0f;
     const float speed = 700.0f;
@@ -27,7 +27,7 @@ void Bomber::update(float delta_time, std::list<Object*>& collidables)
         float tx = std::floor(m_x / m_width) * m_width;
         float ty = std::floor(m_y / m_height) * m_height;
         Bomb* bomb = new Bomb(tx, ty, m_width, m_height);
-        collidables.push_back(bomb);
+        m_bombs.push_back(bomb);
         m_requestBomb = false;
     }
 

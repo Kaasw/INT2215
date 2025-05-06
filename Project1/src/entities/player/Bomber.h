@@ -17,7 +17,7 @@ public:
    Bomber(float x, float y, int w, int h);
    ~Bomber() = default;  
 
-   void update(float delta_time, std::list<Object*>& collidables);
+   void update(float delta_time, std::list<Object*>& collidables, std::list<Bomb*>& m_bombs);
    void draw(SDL_Surface* window_surface);  
    void handleInput(SDL_Event& event);  
 

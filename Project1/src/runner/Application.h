@@ -27,5 +27,5 @@ private:
     SDL_Surface* m_window_surface;
     SDL_Event    m_window_event;
     std::list<Object*> m_collidables;
-    std::list<Object*> m_bombs;
+    std::list<Bomb*> m_bombs;
 };

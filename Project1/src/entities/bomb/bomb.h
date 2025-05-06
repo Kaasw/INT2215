@@ -16,10 +16,11 @@ public:
     bool getDestruct() {
         return isDestroyed;
     }
-    static constexpr int FRAME_COUNT = 3;    // number of frames in sprite
-    static constexpr int MAX_LOOPS = 3;    // how many cycles before removal
+    static constexpr int FRAME_COUNT = 3;   
+    static constexpr int MAX_LOOPS = 3;   
     bool updateBomb(float delta_time);
     int   m_loop_count = 0;
+    bool  isPassable = true;
 
 private:
     Spritesheet bomb_spritesheet;
