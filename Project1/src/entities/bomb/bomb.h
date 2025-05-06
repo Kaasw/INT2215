@@ -27,7 +27,7 @@ private:
     int m_bomb_columns;
     bool m_requestBomb = false;
     float m_destroy_timer = 0.f;       
-    static constexpr float FRAME_DURATION = 0.05f; 
+    static constexpr float FRAME_DURATION = 5.0f; 
     static constexpr int   LOOP_FRAME = 9;  
 
 };

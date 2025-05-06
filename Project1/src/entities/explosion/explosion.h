@@ -3,6 +3,8 @@
 #include <iostream>
 #include "src/graphics/sprite/SpriteSheet.h"  
 #include "src/entities/object/Object.h"  
+#include "src/entities/brick/brick.h"
+#include <list>
 
 enum class ExplosionDir : int {
     Center,
@@ -18,7 +20,8 @@ public:
     ~Explosion() = default;
     void draw(SDL_Surface* window_surface);
 
-	bool updateExplosion(float delta_time);
+	bool updateExplosion(float delta_time, const std::list<Object*>& collidables);
+	bool blocked = false; // for collision detection
 
 private:
     Spritesheet explosion_spritesheet;
@@ -31,7 +34,7 @@ private:
     int            frameIndex = 0;    // current frame (0 or 1)
     int            loopCount = 0;
 
-    static constexpr float FRAME_DURATION = 0.01f;  // seconds per frame
+    static constexpr float FRAME_DURATION = 5.0f;  // seconds per frame
     static constexpr int   FRAMES_PER_DIR = 2;     // two frames per direction
     static constexpr int   MAX_LOOPS = 2;     // complete cycles before removal
 

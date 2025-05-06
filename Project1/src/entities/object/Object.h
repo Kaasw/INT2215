@@ -27,7 +27,7 @@ public:
     int getWidth() const { return m_width; }
     int getHeight() const { return m_height; }
     Type getType() const { return m_type; }
-    SDL_Rect getRect() const;
+    SDL_Rect getRect();
 
     void setX(float x) { m_x = x; }
     void setY(float y) { m_y = y; }

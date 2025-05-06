@@ -16,7 +16,7 @@ Object::~Object()
 
 }
 
-SDL_Rect Object::getRect() const
+SDL_Rect Object::getRect() 
 {
     SDL_Rect rect;
     rect.x = m_x;

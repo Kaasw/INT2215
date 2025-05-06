@@ -1,6 +1,7 @@
 #include "explosion.h"
 #include <iostream>
 
+
 Explosion::Explosion(float x, float y, int w, int h, ExplosionDir dir)
     : Object(x, y, w, h, Type::EXPLOSION)
     , explosion_spritesheet("assets/texture/explosion.png", 4, 4)
@@ -22,20 +23,35 @@ void Explosion::draw(SDL_Surface* surface)
     explosion_spritesheet.draw_selected_sprite(surface, &dst, 2.0f);
 }
 
-bool Explosion::updateExplosion(float delta_time)
+bool Explosion::updateExplosion(float dt, const std::list<Object*>& collidables)
 {
-    timer += delta_time;
+    timer += dt;
     if (timer >= FRAME_DURATION) {
-        timer -= FRAME_DURATION;
+       timer -= FRAME_DURATION;
         ++frameIndex;
         if (frameIndex >= FRAMES_PER_DIR) {
             frameIndex = 0;
             ++loopCount;
             if (loopCount >= MAX_LOOPS)
-                return true;  // done all loops, signal removal
+                return true; // done
         }
         selectCurrentFrame();
     }
+
+    // After updating frame, check collision against bricks
+    SDL_Rect er = getRect();
+    for (auto* obj : collidables)
+    {
+        if (obj->getType() == Type::BRICK)
+        {
+            SDL_Rect br = obj->getRect();
+            if (SDL_HasIntersection(&er, &br))
+            {
+                dynamic_cast<Brick*>(obj)->setDestroy();
+            }
+        }
+    }
+
     return false;
 }
 

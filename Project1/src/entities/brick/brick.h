@@ -25,7 +25,7 @@ private:
 
     // timing
     float m_destroy_timer = 0.f;       // accumulates delta_time
-    static constexpr float FRAME_DURATION = 0.05f;  // seconds per frame
+    static constexpr float FRAME_DURATION = 5.0f;  // seconds per frame
     static constexpr int   DESTROY_FRAMES = 3;    // columns 1,2,3
  
 };

@@ -138,10 +138,13 @@ void Application::update(float delta_time)
         }
         ++it;
     }
+
+
+
     for (auto eit = m_explosions.begin(); eit != m_explosions.end(); )
     {
         Explosion* e = *eit;
-        if (e->updateExplosion(delta_time))
+        if (e->updateExplosion(delta_time, m_collidables))
         {
             delete e;
             eit = m_explosions.erase(eit);
@@ -165,7 +168,27 @@ void Application::draw()
     for (auto* bomb : m_bombs)
         bomb->draw(m_window_surface);
     for (auto* e : m_explosions)
-        e->draw(m_window_surface);
+    {
+        SDL_Rect er = e->getRect();
+        bool blocked = false;
+
+        for (auto* obj : m_collidables)
+        {
+            if ((obj->getType() == Object::Type::WALL ||
+                obj->getType() == Object::Type::BRICK))
+            {
+                SDL_Rect orct = obj->getRect();    // ? materialize into a variable
+                if (SDL_HasIntersection(&er, &orct))
+                {
+                    blocked = true;
+                    break;
+                }
+            }
+        }
+
+        if (!blocked)
+            e->draw(m_window_surface);
+    }
 
     m_bomber.draw(m_window_surface);
     SDL_UpdateWindowSurface(m_window);
