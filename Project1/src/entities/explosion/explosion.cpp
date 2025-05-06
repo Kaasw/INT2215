@@ -50,6 +50,15 @@ bool Explosion::updateExplosion(float dt, const std::list<Object*>& collidables)
                 dynamic_cast<Brick*>(obj)->setDestroy();
             }
         }
+        else if (obj->getType() == Type::BALOON)
+        {
+            SDL_Rect bl = obj->getRect();
+            if (SDL_HasIntersection(&er, &bl))
+            {
+                dynamic_cast<Baloon*>(obj)->setDestroy();
+            }
+        }
+
 	
     }
 

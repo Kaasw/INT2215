@@ -168,16 +168,39 @@ void Application::update(float delta_time)
 
     }
 
-    for (auto it = m_baloons.begin(); it != m_baloons.end(); /*no ++it*/)
+    for (auto it = m_baloons.begin(); it != m_baloons.end(); /* no ++it */)
     {
-        Baloon* b = (*it);
+        Baloon* b = *it;
+
+        // 1) Move & animate the balloon as before
         b->update(delta_time, m_collidables, m_bombs);
+
+        // 2) Kill it if it ever overlaps an explosion
+        {
+            SDL_Rect br = b->getRect();
+            for (auto* e : m_explosions)
+            {
+                SDL_Rect er = e->getRect();
+                if (SDL_HasIntersection(&br, &er))
+                {
+                    b->isDestroyed = true;
+                    break;
+                }
+            }
+        }
+
+        // 3) If marked dead, remove from everything
         if (b->isDestroyed)
         {
+            m_map.removeObject(b);
+            m_collidables.remove(b);
+            delete b;
             it = m_baloons.erase(it);
-            continue;
         }
-        ++it;
+        else
+        {
+            ++it;
+        }
     }
 }
 

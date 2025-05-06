@@ -4,6 +4,7 @@
 #include "src/graphics/sprite/SpriteSheet.h"  
 #include "src/entities/object/Object.h"  
 #include "src/entities/brick/brick.h"
+#include "src/entities/baloon/baloon.h"
 #include <list>
 
 enum class ExplosionDir : int {

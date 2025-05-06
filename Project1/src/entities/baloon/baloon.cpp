@@ -52,7 +52,10 @@ void Baloon::update(float delta_time,
 
 void Baloon::draw(SDL_Surface* window_surface)
 {
-
+    if (isDestroyed) {
+        static int flicker = 0;
+        if ((flicker++ / 5) % 2 == 0) return;
+    }
     SDL_Rect dst = getRect();
     baloon_spritesheet.draw_selected_sprite(window_surface, &dst, 2.0f);
 }
@@ -78,6 +81,14 @@ void Baloon::moveX(float dx, std::list<Object*>& collidables)
     }
 }
 
+bool Baloon::checkBaloon(float delta_time)
+{
+    if (!isDestroyed)
+        return false;
+   
+    baloon_spritesheet.select_sprite(0, 3);
+    return true;
+}
 
 
 

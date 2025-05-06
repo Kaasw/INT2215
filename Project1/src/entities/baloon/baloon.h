@@ -25,6 +25,7 @@ public:
     void update(float delta_time,
         std::list<Object*>& collidables,
         std::list<Bomb*>& m_bombs);
+    bool checkBaloon(float delta_time);
     static constexpr int FRAME_COUNT = 3;
 
 private:
@@ -36,7 +37,7 @@ private:
     float timer = 0.0f;                   // NEW
     static constexpr float FRAME_DURATION = 5.0f;
     void moveX(float dx, std::list<Object*>& collidables);
-    void moveY(float dy, std::list<Object*>& collidables);
+    
 
 
 };
