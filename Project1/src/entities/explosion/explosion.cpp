@@ -50,6 +50,7 @@ bool Explosion::updateExplosion(float dt, const std::list<Object*>& collidables)
                 dynamic_cast<Brick*>(obj)->setDestroy();
             }
         }
+	
     }
 
     return false;

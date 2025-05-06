@@ -10,7 +10,6 @@ int const SPRITESHEET_LEFT = 3;
 int const SPRITESHEET_RIGHT = 1;
 int const SPRITESHEET_DOWN = 2;
 int previousSprite = SPRITESHEET_RIGHT;
-int previousColumn = 0;
 
 Bomber::Bomber(float x, float y, int w, int h)
     : Object(x, y, w, h, Type::PLAYER)
@@ -24,6 +23,17 @@ void Bomber::update(float delta_time,
     std::list<Object*>& collidables,
     std::list<Bomb*>& m_bombs)
 {
+    if (m_invulnerable) {
+        m_invulTimer -= delta_time;
+        if (m_invulTimer <= 0.0f) {
+            m_invulnerable = false;
+        }
+    }
+
+	if (isDead()) {
+        m_spritesheet.select_sprite(0, 3);
+		return;
+	}
     
     // 1) Spawn bomb if requested
     if (m_requestBomb) {
@@ -45,25 +55,25 @@ void Bomber::update(float delta_time,
     if (vx < 0) {
         m_spritesheet.select_sprite(SPRITESHEET_LEFT, m_spritesheet_column);
 		previousSprite = SPRITESHEET_LEFT;
-		previousColumn = 0;
+
 	}
 	else if (vx > 0) {
 		m_spritesheet.select_sprite(SPRITESHEET_RIGHT, m_spritesheet_column);
 		previousSprite = SPRITESHEET_RIGHT;
-		previousColumn = 0;
+
 	}
 	else if (vy < 0) {
 		m_spritesheet.select_sprite(SPRITESHEET_UP, m_spritesheet_column);
 		previousSprite = SPRITESHEET_UP;
-		previousColumn = 0;
+
 	}
 	else if (vy > 0) {
 		m_spritesheet.select_sprite(SPRITESHEET_DOWN, m_spritesheet_column);
 		previousSprite = SPRITESHEET_DOWN;
-		previousColumn = 0;
+
 	}
     else {
-        m_spritesheet.select_sprite(previousSprite, previousColumn);
+        m_spritesheet.select_sprite(previousSprite, 0);
     }
        // idle frame
 
@@ -80,6 +90,10 @@ void Bomber::update(float delta_time,
 
 void Bomber::draw(SDL_Surface* window_surface)
 {
+    if (m_invulnerable) {
+        static int flicker = 0;
+        if ((flicker++ / 5) % 2 == 0) return;
+    }
     SDL_Rect dst = getRect();
     m_spritesheet.draw_selected_sprite(window_surface, &dst, 2.0f);
 }
@@ -123,11 +137,7 @@ void Bomber::moveY(float dy, std::list<Object*>& collidables)
         if (SDL_HasIntersection(&me, &other))
         {
             // if it's an explosion, mark brick for destruction
-            if (obj->getType() == Type::EXPLOSION)
-            {
-                std::cout << "Explosion hit – marking for removal\n";
-                dynamic_cast<Brick*>(obj)->setDestroy();
-            }
+           
             // push bomber back outside
             if (dy > 0)
                 m_y = other.y - me.h;
@@ -136,4 +146,26 @@ void Bomber::moveY(float dy, std::list<Object*>& collidables)
             break;
         }
     }
+}
+
+void Bomber::takeHit()
+{
+    if (m_invulnerable) return;       // ignore if still invulnerable
+
+    // start invuln
+    m_invulnerable = true;
+    m_invulTimer = INVUL_DURATION;
+
+    // actual damage
+    if (m_health > 0) {
+        --m_health;
+        std::cout << "Ouch! Lives left: " << m_health << "\n";
+        // optional: respawn or knockback
+        //m_x = m_y = 0;
+    }
+}
+
+bool Bomber::isDead() const {
+
+    return (m_health <= 0);
 }

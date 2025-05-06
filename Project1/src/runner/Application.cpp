@@ -36,7 +36,6 @@ Application::Application()
         std::cout << "SDL2 Error: " << SDL_GetError() << "\n";
         return;
     }
-
     m_map.loadMap("src/levels/level1.txt");
     auto& mapObjects = m_map.getObjects();
     for (auto* obj : mapObjects) {
@@ -45,6 +44,7 @@ Application::Application()
         }
         //m_collidables.push_back(obj);
     }
+   
 }
 
 Application::~Application()
@@ -82,7 +82,7 @@ void Application::update(float delta_time)
 {
     m_bomber.update(delta_time, m_collidables, m_bombs);
 
-
+    SDL_Rect playerRect = m_bomber.getRect();
     for (auto it = m_collidables.begin(); it != m_collidables.end(); )
     {
         Brick* b = dynamic_cast<Brick*>(*it);
@@ -100,7 +100,7 @@ void Application::update(float delta_time)
         ++it;
     }
 
-    SDL_Rect playerRect = m_bomber.getRect();
+   
     for (auto it = m_bombs.begin(); it != m_bombs.end(); /*no ++it*/)
     {
         Bomb* bomb = *it;
@@ -139,6 +139,15 @@ void Application::update(float delta_time)
         ++it;
     }
 
+    for (auto* e : m_explosions) {
+        SDL_Rect er = e->getRect();
+        if (SDL_HasIntersection(&playerRect, &er) &&
+            !m_bomber.isInvulnerable())   // only hit if not invulnerable
+        {
+            m_bomber.takeHit();
+            break;  // only one hit per frame
+        }
+    }
 
 
     for (auto eit = m_explosions.begin(); eit != m_explosions.end(); )
@@ -153,6 +162,7 @@ void Application::update(float delta_time)
         {
             ++eit;
         }
+
     }
 }
 
