@@ -14,7 +14,8 @@ public:
         GRASS,
         BOMB,
         POWERUP,
-        WALL
+        WALL,
+        EXPLOSION
     };
 
 

@@ -7,13 +7,16 @@
 #include "../entities/wall/wall.h"
 #include "../entities/object/Object.h"
 #include "../entities/bomb/bomb.h"
+#include "../entities/explosion/explosion.h"
 #include <algorithm>  
 #include <iostream>
 #include <list>
 
+
 class Application
 {
 public:
+
     Application();
     ~Application();
 
@@ -28,4 +31,5 @@ private:
     SDL_Event    m_window_event;
     std::list<Object*> m_collidables;
     std::list<Bomb*> m_bombs;
+    std::list<Explosion*> m_explosions;
 };

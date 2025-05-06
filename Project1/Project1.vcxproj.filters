@@ -42,6 +42,9 @@
     <ClInclude Include="src\entities\bomb\bomb.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\entities\explosion\explosion.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -72,6 +75,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\entities\bomb\bomb.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\entities\explosion\explosion.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

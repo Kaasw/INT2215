@@ -136,6 +136,7 @@
   <ItemGroup>
     <ClInclude Include="src\entities\bomb\bomb.h" />
     <ClInclude Include="src\entities\brick\brick.h" />
+    <ClInclude Include="src\entities\explosion\explosion.h" />
     <ClInclude Include="src\entities\object\Object.h" />
     <ClInclude Include="src\entities\wall\wall.h" />
     <ClInclude Include="src\graphics\map\map.h" />
@@ -147,6 +148,7 @@
   <ItemGroup>
     <ClCompile Include="src\entities\bomb\bomb.cpp" />
     <ClCompile Include="src\entities\brick\brick.cpp" />
+    <ClCompile Include="src\entities\explosion\explosion.cpp" />
     <ClCompile Include="src\entities\object\Object.cpp" />
     <ClCompile Include="src\entities\wall\wall.cpp" />
     <ClCompile Include="src\graphics\map\map.cpp" />
