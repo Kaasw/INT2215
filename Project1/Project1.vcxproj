@@ -72,8 +72,8 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>F:\SDL2\include;F:\SDL2_image-2.8.8\include;$(IncludePath)</IncludePath>
-    <LibraryPath>F:\SDL2_image-2.8.8\lib\x64;F:\SDL2\lib\x64;$(LibraryPath)</LibraryPath>
+    <IncludePath>F:\SDL2_mixer-2.8.1\include;F:\SDL2_ttf-2.24.0\include;F:\SDL2\include;F:\SDL2_image-2.8.8\include;$(IncludePath)</IncludePath>
+    <LibraryPath>F:\SDL2_mixer-2.8.1\lib\x64;F:\SDL2_ttf-2.24.0\lib\x64;F:\SDL2_image-2.8.8\lib\x64;F:\SDL2\lib\x64;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -114,7 +114,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_ttf.lib;SDL2_mixer.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -134,26 +134,32 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\entities\AI\ai.h" />
     <ClInclude Include="src\entities\baloon\baloon.h" />
     <ClInclude Include="src\entities\bomb\bomb.h" />
     <ClInclude Include="src\entities\brick\brick.h" />
     <ClInclude Include="src\entities\explosion\explosion.h" />
     <ClInclude Include="src\entities\object\Object.h" />
+    <ClInclude Include="src\entities\oneal\oneal.h" />
     <ClInclude Include="src\entities\wall\wall.h" />
     <ClInclude Include="src\graphics\map\map.h" />
+    <ClInclude Include="src\graphics\menu\menu.h" />
     <ClInclude Include="src\graphics\sprite\Sprite.h" />
     <ClInclude Include="src\runner\Application.h" />
     <ClInclude Include="src\entities\player\Bomber.h" />
     <ClInclude Include="src\graphics\sprite\SpriteSheet.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\entities\AI\ai.cpp" />
     <ClCompile Include="src\entities\baloon\baloon.cpp" />
     <ClCompile Include="src\entities\bomb\bomb.cpp" />
     <ClCompile Include="src\entities\brick\brick.cpp" />
     <ClCompile Include="src\entities\explosion\explosion.cpp" />
     <ClCompile Include="src\entities\object\Object.cpp" />
+    <ClCompile Include="src\entities\oneal\oneal.cpp" />
     <ClCompile Include="src\entities\wall\wall.cpp" />
     <ClCompile Include="src\graphics\map\map.cpp" />
+    <ClCompile Include="src\graphics\menu\menu.cpp" />
     <ClCompile Include="src\graphics\sprite\Sprite.cpp" />
     <ClCompile Include="src\runner\Application.cpp" />
     <ClCompile Include="src\entities\player\Bomber.cpp" />
@@ -176,6 +182,11 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="src\levels\level1.txt" />
+    <Text Include="src\levels\level2.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="assets\fonts\ARCADECLASSIC.TTF" />
+    <Font Include="assets\fonts\ARIAL.TTF" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -48,6 +48,15 @@
     <ClInclude Include="src\entities\baloon\baloon.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\entities\oneal\oneal.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\entities\AI\ai.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\graphics\menu\menu.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -86,6 +95,15 @@
     <ClCompile Include="src\entities\baloon\baloon.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\entities\oneal\oneal.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\entities\AI\ai.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\menu\menu.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="assets\textures\classic.pdn" />
@@ -121,5 +139,10 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="src\levels\level1.txt" />
+    <Text Include="src\levels\level2.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="assets\fonts\ARIAL.TTF" />
+    <Font Include="assets\fonts\ARCADECLASSIC.TTF" />
   </ItemGroup>
 </Project>

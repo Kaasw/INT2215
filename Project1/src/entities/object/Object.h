@@ -13,9 +13,10 @@ public:
         BRICK,
         GRASS,
         BOMB,
-        POWERUP,
+        AI,
         WALL,
-        EXPLOSION
+        EXPLOSION,
+        ONEAL
     };
 
 

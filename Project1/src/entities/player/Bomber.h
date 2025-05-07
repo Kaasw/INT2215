@@ -7,13 +7,7 @@
 
 class Bomber: public Object {  
 public:  
-   enum class Direction {  
-       NONE,  
-       UP,  
-       DOWN,  
-       LEFT,  
-       RIGHT  
-   };  
+ 
    Bomber(float x, float y, int w, int h);
    ~Bomber() = default;  
    void takeHit();           // call when you detect an explosion overlap
@@ -23,10 +17,12 @@ public:
    void handleInput(SDL_Event& event);  
    int   m_health = 3;
    bool isInvulnerable() const { return m_invulnerable; }
+   int getHealth() { return m_health; }
+   void setHealth(int health) { m_health = health; }
+   
 private:  
    void moveX(float dx, std::list<Object*>& collidables);
    void moveY(float dy, std::list<Object*>& collidables);
-   Direction m_direction;  
    int m_spritesheet_column;  
    Spritesheet m_spritesheet;  
    bool m_requestBomb = false;

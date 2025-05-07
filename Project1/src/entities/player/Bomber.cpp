@@ -86,6 +86,7 @@ void Bomber::update(float delta_time,
     m_spritesheet_column++;
     if (m_spritesheet_column > 2)
         m_spritesheet_column = 0;
+    
 }
 
 void Bomber::draw(SDL_Surface* window_surface)
@@ -169,3 +170,4 @@ bool Bomber::isDead() const {
 
     return (m_health <= 0);
 }
+

@@ -66,6 +66,27 @@ bool Map::loadMap(const std::string& filePath) {
                 std::cout << "Baloon at: " << x * m_brickWidth << ", " << y * m_brickHeight << std::endl;
             }
 
+            else if (line[x] == 'O') {
+                object = new Oneal(
+                    x * m_brickWidth,
+                    y * m_brickHeight,
+                    m_brickWidth,
+                    m_brickHeight
+                );
+                m_objects.push_back(object);
+                std::cout << "Oneal at: " << x * m_brickWidth << ", " << y * m_brickHeight << std::endl;
+            }
+			else if (line[x] == 'A') {
+				object = new AI(
+					x * m_brickWidth,
+					y * m_brickHeight,
+					m_brickWidth,
+					m_brickHeight
+				);
+				m_objects.push_back(object);
+				std::cout << "AI at: " << x * m_brickWidth << ", " << y * m_brickHeight << std::endl;
+			}
+
 
             row.push_back(object);
         }
@@ -87,6 +108,7 @@ void Map::draw(SDL_Surface* window_surface) {
             Brick* brick = dynamic_cast<Brick*>(object);
 			Wall* wall = dynamic_cast<Wall*>(object);
 			Baloon* baloon = dynamic_cast<Baloon*>(object);
+			Oneal* oneal = dynamic_cast<Oneal*>(object);
 
             if (brick) { 
                 brick->draw(window_surface);
@@ -97,6 +119,9 @@ void Map::draw(SDL_Surface* window_surface) {
 			else if (baloon) {
 				baloon->draw(window_surface);
 			}
+            else if (oneal) {
+                oneal->draw(window_surface);
+            }
 
         }
     }
@@ -129,4 +154,11 @@ void Map::clearMap() {
 
 const std::vector<Object*>& Map::getObjects() const {
     return m_objects;
+}
+
+void Map::clearObjects() {
+    for (auto* obj : m_objects) {
+        delete obj;
+    }
+    m_objects.clear();
 }

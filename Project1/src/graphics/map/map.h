@@ -5,6 +5,8 @@
 #include "src/entities/brick/brick.h"
 #include "src/entities/wall/wall.h"
 #include "src/entities/baloon/baloon.h"
+#include "src/entities/oneal/oneal.h"
+#include "src/entities/AI/ai.h"
 
 
 class Map {
@@ -18,11 +20,14 @@ public:
     
     const std::vector<Object*>& getObjects() const;
     void removeObject(Object* obj);
+	void clearObjects();
+    void clearMap();
 
 private:
     std::vector<std::vector<Object*>> m_mapData;  
     std::vector<Object*> m_objects; 
     int m_brickWidth;
     int m_brickHeight;
-    void clearMap();
+   
+
 };
