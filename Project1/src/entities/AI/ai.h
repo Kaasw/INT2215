@@ -29,7 +29,7 @@ public:
         return isDestroyed;
     }
 
-	bool isBlocked = false; // for collision detection
+	bool isBlocked = false; 
 	bool rightBlocked = false;
 	bool leftBlocked = false;
 	bool upBlocked = false;
@@ -69,13 +69,13 @@ public:
 private:
     Spritesheet AI_spritesheet;
     int m_AI_columns;
-    float timer = 0.0f;                   // NEW
+    float timer = 0.0f;                   
     static constexpr float FRAME_DURATION = 5.0f;
-    static constexpr float SIGHT_RADIUS = 50.0f; // pixels
+    static constexpr float SIGHT_RADIUS = 50.0f;
     static constexpr float ALIGN_THRESH = 4.0f;
     void moveX(float dx, std::list<Object*>& collidables, AI_Direction bestDir);
     void moveY(float dx, std::list<Object*>& collidables, AI_Direction bestDir);
-	AI_Direction direction = AI_Direction::LEFT; // default direction
+	AI_Direction direction = AI_Direction::LEFT; 
 	float distance( SDL_Rect& playerRect,  SDL_Rect& testPos);
 
 

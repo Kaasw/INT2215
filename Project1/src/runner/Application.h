@@ -22,8 +22,8 @@ class Application {
 public:
     struct Transition {
         float timer = 0.0f;
-        float duration = 1.0f;       // total seconds fade‐out + fade‐in
-        bool  loading = false;      // have we already swapped levels?
+        float duration = 1.0f;       
+        bool  loading = false;      
     };
     Application();
     ~Application();

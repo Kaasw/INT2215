@@ -1,7 +1,7 @@
 #include "Menu.h"
 #include <iostream>
 
-Menu::Menu(SDL_Surface* /*surface*/, const std::string& bgImagePath)
+Menu::Menu(SDL_Surface*, const std::string& bgImagePath)
     : _items({ "Start Game", "Exit" })
     , _selectedIndex(0)
     , _finished(false)
@@ -10,22 +10,21 @@ Menu::Menu(SDL_Surface* /*surface*/, const std::string& bgImagePath)
     , _highlightColor{ 255,215,0,255 }
     , _background(nullptr)
 {
-    // Initialize TTF if needed
     if (TTF_WasInit() == 0) {
         if (TTF_Init() < 0) {
             std::cerr << "TTF_Init Error: " << TTF_GetError() << std::endl;
         }
     }
-    // Load font
+ 
     _font = TTF_OpenFont("assets/fonts/ARCADECLASSIC.ttf", 24);
     if (!_font) {
         std::cerr << "Failed to load font: " << TTF_GetError() << std::endl;
     }
-    // Initialize SDL_image if needed
+
     if ((IMG_Init(IMG_INIT_PNG) & IMG_INIT_PNG) == 0) {
         std::cerr << "IMG_Init Error: " << IMG_GetError() << std::endl;
     }
-    // Load background image
+ 
     _background = IMG_Load(bgImagePath.c_str());
     if (!_background) {
         std::cerr << "Failed to load background: " << IMG_GetError() << std::endl;
@@ -59,7 +58,7 @@ bool Menu::handleEvent(const SDL_Event& e) {
 }
 
 void Menu::draw(SDL_Surface* surface) {
-    // Draw background stretched to window
+    
     if (_background) {
         SDL_Rect dst = { 0,0, surface->w, surface->h };
         SDL_BlitScaled(_background, nullptr, surface, &dst);

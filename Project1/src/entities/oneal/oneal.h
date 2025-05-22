@@ -37,10 +37,10 @@ public:
 private:
     Spritesheet oneal_spritesheet;
     int m_oneal_columns;
-	OnealDirection direction = OnealDirection::LEFT; // default direction
-    float timer = 0.0f;                   // NEW
+	OnealDirection direction = OnealDirection::LEFT; 
+    float timer = 0.0f;               
     static constexpr float FRAME_DURATION = 5.0f;
-    static constexpr float SIGHT_RADIUS = 50.0f; // pixels
+    static constexpr float SIGHT_RADIUS = 50.0f;
     static constexpr float ALIGN_THRESH = 4.0f;
     void moveX(float dx, std::list<Object*>& collidables);
     void moveY(float dx, std::list<Object*>& collidables);

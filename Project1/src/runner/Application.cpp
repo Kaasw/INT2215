@@ -39,7 +39,6 @@ Application::Application()
         std::cerr << "Mix_OpenAudio Error: " << Mix_GetError() << "\n";
     }
 
-    // Load background music (looped indefinitely)
     m_bgm = Mix_LoadMUS("assets/music/bg.mp3");
     if (!m_bgm) {
         std::cerr << "Failed to load BGM: " << Mix_GetError() << "\n";
@@ -59,30 +58,33 @@ Application::Application()
     _menu = new Menu(m_window_surface, "assets/texture/menu.png");
 
     _currentLevel = 1;
-    loadLevel(_currentLevel);
+    if (_currentLevel == _maxLevel) {
+        return;
+    }
+    else {
+        loadLevel(_currentLevel);
+    }
+    
 }
 
 void Application::loadLevel(int levelNumber) {
-    // 1) Delete and clear all dynamic lists that OWN their pointers
+   
     for (auto* bomb : m_bombs)      delete bomb;
     for (auto* exp : m_explosions) delete exp;
     m_bombs.clear();
     m_explosions.clear();
 
-    // 2) Clear out all lists that reference map objects
     m_collidables.clear();
     m_baloons.clear();
     m_oneals.clear();
     m_AI.clear();
 
-    // 3) Now let the Map itself delete its old Objects
-    m_map.clearMap();   // only deletes things inside m_map.getObjects()
+    m_map.clearMap();   
 
-    // 4) Load the new map file
+  
     std::string path = "src/levels/level" + std::to_string(levelNumber) + ".txt";
     m_map.loadMap(path);
 
-    // 5) Repopulate your reference lists FROM THE NEW map.getObjects()
     for (auto* obj : m_map.getObjects()) {
         if (auto* b = dynamic_cast<Brick*>(obj)) {
             m_collidables.push_back(b);
@@ -101,11 +103,11 @@ void Application::loadLevel(int levelNumber) {
         }
     }
 
-    // 6) Reset player & HUD
+  
     //m_bomber = Bomber(32, 32, 32, 32);
 	//m_bomber.setPosition(32, 32);
     m_lives = m_bomber.getHealth();
-    // m_score = 0;   // if you’d like
+
 
 }
 
@@ -137,10 +139,10 @@ void Application::loop() {
                     m_window_event.key.keysym.scancode == SDL_SCANCODE_M)
                 {
                     toggleMute();
-                    continue;  // skip the rest of this event
+                    continue; 
                 }
 
-                // existing gameplay input
+            
                 m_bomber.handleInput(m_window_event);
                 if (m_window_event.type == SDL_QUIT)
                     running = false;
@@ -186,8 +188,6 @@ void Application::loop() {
 void Application::update(float delta_time)
 {
     m_bomber.update(delta_time, m_collidables, m_bombs);
-    // at the end of update, after you remove dead enemies:
-    
 
     SDL_Rect playerRect = m_bomber.getRect();
     for (auto it = m_collidables.begin(); it != m_collidables.end(); )
@@ -208,7 +208,7 @@ void Application::update(float delta_time)
     }
 
    
-    for (auto it = m_bombs.begin(); it != m_bombs.end(); /*no ++it*/)
+    for (auto it = m_bombs.begin(); it != m_bombs.end();)
     {
         Bomb* bomb = *it;
 
@@ -253,10 +253,10 @@ void Application::update(float delta_time)
     for (auto* e : m_explosions) {
         SDL_Rect er = e->getRect();
         if (SDL_HasIntersection(&playerRect, &er) &&
-            !m_bomber.isInvulnerable())   // only hit if not invulnerable
+            !m_bomber.isInvulnerable())  
         {
             m_bomber.takeHit();
-            break;  // only one hit per frame
+            break;  
         }
     }
 
@@ -276,17 +276,17 @@ void Application::update(float delta_time)
 
     }
 
-    for (auto it = m_baloons.begin(); it != m_baloons.end(); /* no ++it */)
+    for (auto it = m_baloons.begin(); it != m_baloons.end();)
     {
         Baloon* b = *it;
 		SDL_Rect bl = b->getRect();
         if (SDL_HasIntersection(&playerRect, &bl) &&
-            !m_bomber.isInvulnerable())   // only hit if not invulnerable
+            !m_bomber.isInvulnerable())   
         {
             m_bomber.takeHit();
             break;  
         }
-        // 1) Move & animate the balloon as before
+
         b->update(delta_time, m_collidables, m_bombs);
 
         {
@@ -302,7 +302,7 @@ void Application::update(float delta_time)
             }
         }
 
-        // 3) If marked dead, remove from everything
+  
         if (b->isDestroyed)
         {
             m_map.removeObject(b);
@@ -315,17 +315,16 @@ void Application::update(float delta_time)
             ++it;
         }
     }
-    for (auto it = m_oneals.begin(); it != m_oneals.end(); /* no ++it */)
+    for (auto it = m_oneals.begin(); it != m_oneals.end();)
     {
         Oneal* o = *it;
         SDL_Rect oneal = o->getRect();
         if (SDL_HasIntersection(&playerRect, &oneal) &&
-            !m_bomber.isInvulnerable())   // only hit if not invulnerable
+            !m_bomber.isInvulnerable())  
         {
             m_bomber.takeHit();
             break;
         }
-        // 1) Move & animate the balloon as before
         o->update(delta_time, m_collidables, m_bombs, playerRect);
 
         {
@@ -341,7 +340,6 @@ void Application::update(float delta_time)
             }
         }
 
-        // 3) If marked dead, remove from everything
         if (o->isDestroyed)
         {
             m_map.removeObject(o);
@@ -355,17 +353,17 @@ void Application::update(float delta_time)
         }
     }
 
-    for (auto it = m_AI.begin(); it != m_AI.end(); /* no ++it */)
+    for (auto it = m_AI.begin(); it != m_AI.end();)
     {
         AI* o = *it;
         SDL_Rect oneal = o->getRect();
         if (SDL_HasIntersection(&playerRect, &oneal) &&
-            !m_bomber.isInvulnerable())   // only hit if not invulnerable
+            !m_bomber.isInvulnerable())   
         {
             m_bomber.takeHit();
             break;
         }
-        // 1) Move & animate the balloon as before
+
         o->update(delta_time, m_collidables, m_bombs, playerRect);
 
         {
@@ -381,7 +379,6 @@ void Application::update(float delta_time)
             }
         }
 
-        // 3) If marked dead, remove from everything
         if (o->isDestroyed)
         {
             m_map.removeObject(o);
@@ -400,7 +397,6 @@ void Application::update(float delta_time)
         && m_AI.empty();
     bool noExplosions = m_explosions.empty();
 
-    // only advance once both all enemies are gone and all explosions have finished
     if (noEnemies && noExplosions) {
 		if (_currentLevel >= _maxLevel) {
 			_state = AppState::Win;
@@ -417,14 +413,13 @@ void Application::update(float delta_time)
 
 void Application::draw()
 {
-    // 1) Clear the window to your background color (pink here)
     SDL_FillRect(
         m_window_surface,
         nullptr,
         SDL_MapRGB(m_window_surface->format, 255, 153, 204)
     );
 
-    // 2) Blit everything else as you already do:
+
     m_map.draw(m_window_surface);
     for (auto* b : m_bombs)      b->draw(m_window_surface);
     for (auto* e : m_explosions) e->draw(m_window_surface);
@@ -433,7 +428,6 @@ void Application::draw()
     for (auto* ai : m_AI)        ai->draw(m_window_surface);
     m_bomber.draw(m_window_surface);
 
-    // Draw hearts (lives)
     m_lives = m_bomber.getHealth();
     const int heartSize = 32, padding = 10;
     for (int i = 0; i < m_lives; ++i) {
@@ -445,7 +439,6 @@ void Application::draw()
         SDL_BlitScaled(m_heartSurface, nullptr, m_window_surface, &dst);
     }
 
-    // 3) Present the entire surface to screen
     SDL_UpdateWindowSurface(m_window);
 }
 
@@ -473,17 +466,14 @@ void Application::handleGameOverInput(const SDL_Event& e, bool& running)
 
 void Application::drawGameOver()
 {
-    // Clear
     SDL_FillRect(m_window_surface, nullptr,
         SDL_MapRGB(m_window_surface->format, 0, 0, 0));
-    // Draw "Game Over" text
     SDL_Color red = { 255,0,0,255 };
     SDL_Surface* goSurf = TTF_RenderText_Solid(m_hudFont, "Game Over", red);
     SDL_Rect goDst{ (m_window_surface->w - goSurf->w) / 2, 150, goSurf->w, goSurf->h };
     SDL_BlitSurface(goSurf, nullptr, m_window_surface, &goDst);
     SDL_FreeSurface(goSurf);
 
-    // Draw options
     const char* opts[2] = { "Retry", "Quit" };
     for (int i = 0; i < 2; ++i) {
         SDL_Color color = (i == _gameOverSelection) ? red : SDL_Color{ 255,255,255,255 };

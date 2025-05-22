@@ -34,7 +34,7 @@ private:
 	bool direction = false; // true = right, false = left
 
    
-    float timer = 0.0f;                   // NEW
+    float timer = 0.0f;                  
     static constexpr float FRAME_DURATION = 5.0f;
     void moveX(float dx, std::list<Object*>& collidables);
     

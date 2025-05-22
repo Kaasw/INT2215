@@ -144,7 +144,6 @@
     <ClInclude Include="src\entities\wall\wall.h" />
     <ClInclude Include="src\graphics\map\map.h" />
     <ClInclude Include="src\graphics\menu\menu.h" />
-    <ClInclude Include="src\graphics\sprite\Sprite.h" />
     <ClInclude Include="src\runner\Application.h" />
     <ClInclude Include="src\entities\player\Bomber.h" />
     <ClInclude Include="src\graphics\sprite\SpriteSheet.h" />
@@ -160,7 +159,6 @@
     <ClCompile Include="src\entities\wall\wall.cpp" />
     <ClCompile Include="src\graphics\map\map.cpp" />
     <ClCompile Include="src\graphics\menu\menu.cpp" />
-    <ClCompile Include="src\graphics\sprite\Sprite.cpp" />
     <ClCompile Include="src\runner\Application.cpp" />
     <ClCompile Include="src\entities\player\Bomber.cpp" />
     <ClCompile Include="src\main.cpp" />

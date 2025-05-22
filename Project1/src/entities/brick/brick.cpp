@@ -21,7 +21,7 @@ bool Brick::updateBrick(float delta_time)
     if (m_destroy_timer >= FRAME_DURATION && m_brick_columns < DESTROY_FRAMES)
     {
         m_destroy_timer -= FRAME_DURATION;
-        ++m_brick_columns;  // 1?2?3
+        ++m_brick_columns;  
         brick_spritesheet.select_sprite(0, m_brick_columns);
     }
 

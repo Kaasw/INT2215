@@ -12,9 +12,8 @@ float previousDistance = 0.0f;
 float firstDistance = 0.0f;
 float bestDist = std::numeric_limits<float>::infinity();
 
-// Add a timer for distance recalculation
 float distanceRecalcTimer = 0.0f;
-// How often to recalculate distance (in seconds)
+
 const float DISTANCE_RECALC_INTERVAL = 1.0f; // Recalculate every 1 second
 
 AI::AI(float x, float y, int w, int h)
@@ -36,15 +35,13 @@ void AI::update(float delta_time,
     float vx = 0.0f, vy = 0.0f;
     const float speed = 5.0f;
 
-    // Update the distance recalculation timer
+   
     distanceRecalcTimer += delta_time;
 
-    // Only recalculate the best direction if the recalculation timer has expired
+   
     if (distanceRecalcTimer >= DISTANCE_RECALC_INTERVAL) {
-        // Reset the timer
         distanceRecalcTimer = 0.0f;
 
-        // Reset best distance for new calculation
         bestDist = std::numeric_limits<float>::infinity();
 
         AI_Direction bestDir = direction;
@@ -56,7 +53,6 @@ void AI::update(float delta_time,
                 (testDir == AI_Direction::DOWN && downBlocked))
                 continue;
 
-            // simulate moving by speed*dt in that axis
             SDL_Rect testPos = getRect();
             if (testDir == AI_Direction::LEFT)  testPos.x -= speed * delta_time;
             if (testDir == AI_Direction::RIGHT) testPos.x += speed * delta_time;

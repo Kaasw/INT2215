@@ -10,7 +10,7 @@ public:
  
    Bomber(float x, float y, int w, int h);
    ~Bomber() = default;  
-   void takeHit();           // call when you detect an explosion overlap
+   void takeHit();           
    bool  isDead() const;
    void update(float delta_time, std::list<Object*>& collidables, std::list<Bomb*>& m_bombs);
    void draw(SDL_Surface* window_surface);  

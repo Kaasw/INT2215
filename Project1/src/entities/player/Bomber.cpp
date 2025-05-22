@@ -35,7 +35,6 @@ void Bomber::update(float delta_time,
 		return;
 	}
     
-    // 1) Spawn bomb if requested
     if (m_requestBomb) {
         float tx = std::floor(m_x / m_width) * m_width;
         float ty = std::floor(m_y / m_height) * m_height;
@@ -43,7 +42,6 @@ void Bomber::update(float delta_time,
         m_requestBomb = false;
     }
 
-    // 2) Poll keyboard for continuous multi-key movement
     const Uint8* keys = SDL_GetKeyboardState(nullptr);
     float vx = 0.0f, vy = 0.0f;
     if (keys[SDL_SCANCODE_W]) vy -= 1.0f;
@@ -51,7 +49,7 @@ void Bomber::update(float delta_time,
     if (keys[SDL_SCANCODE_A]) vx -= 1.0f;
     if (keys[SDL_SCANCODE_D]) vx += 1.0f;
 
-    // 3) Choose sprite row based on primary axis of movement
+
     if (vx < 0) {
         m_spritesheet.select_sprite(SPRITESHEET_LEFT, m_spritesheet_column);
 		previousSprite = SPRITESHEET_LEFT;
@@ -75,14 +73,12 @@ void Bomber::update(float delta_time,
     else {
         m_spritesheet.select_sprite(previousSprite, 0);
     }
-       // idle frame
-
-    // 4) Movement & collision
+    
     const float speed = 5.0f;
     moveX(vx * speed * delta_time, collidables);
     moveY(vy * speed * delta_time, collidables);
 
-    // 5) Advance animation column
+  
     m_spritesheet_column++;
     if (m_spritesheet_column > 2)
         m_spritesheet_column = 0;
@@ -137,9 +133,7 @@ void Bomber::moveY(float dy, std::list<Object*>& collidables)
         SDL_Rect other = obj->getRect();
         if (SDL_HasIntersection(&me, &other))
         {
-            // if it's an explosion, mark brick for destruction
-           
-            // push bomber back outside
+         
             if (dy > 0)
                 m_y = other.y - me.h;
             else
@@ -151,18 +145,17 @@ void Bomber::moveY(float dy, std::list<Object*>& collidables)
 
 void Bomber::takeHit()
 {
-    if (m_invulnerable) return;       // ignore if still invulnerable
+    if (m_invulnerable) return;      
 
     // start invuln
     m_invulnerable = true;
     m_invulTimer = INVUL_DURATION;
 
-    // actual damage
+
     if (m_health > 0) {
         --m_health;
         std::cout << "Ouch! Lives left: " << m_health << "\n";
-        // optional: respawn or knockback
-        //m_x = m_y = 0;
+      
     }
 }
 

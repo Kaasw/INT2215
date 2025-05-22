@@ -9,18 +9,13 @@
 class Menu {
 public:
     enum Option { StartGame = 0, ExitApp = 1 };
-
-    // Initialize with the window surface and background image path
     Menu(SDL_Surface* surface, const std::string& bgImagePath);
     ~Menu();
 
-    // Process one SDL event; returns true if user confirmed selection
     bool handleEvent(const SDL_Event& e);
 
-    // Render the menu options with background
     void draw(SDL_Surface* surface);
 
-    // After completion, retrieve which option was chosen
     Option getSelection() const;
     bool isFinished() const;
 

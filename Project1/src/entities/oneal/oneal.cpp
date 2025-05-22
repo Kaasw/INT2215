@@ -24,15 +24,15 @@ void Oneal::update(float delta_time,
     float px = float(playerRect.x), py = float(playerRect.y);
     float dx = px - ox, dy = py - oy;
     if ((dx * dx + dy * dy) <= SIGHT_RADIUS * SIGHT_RADIUS) {
-        // if nearly aligned in X → chase vertically
+
         if (std::fabs(ox - px) <= ALIGN_THRESH) {
             direction = (dy > 0 ? OnealDirection::DOWN : OnealDirection::UP);
         }
-        // else if nearly aligned in Y → chase horizontally
+      
         else if (std::fabs(oy - py) <= ALIGN_THRESH) {
             direction = (dx > 0 ? OnealDirection::RIGHT : OnealDirection::LEFT);
         }
-        // otherwise keep current direction
+      
 
     }
     float vx = 0.0f, vy = 0.0f;
@@ -88,7 +88,6 @@ void Oneal::moveX(float dx, std::list<Object*>& collidables)
 
     m_x += dx;
     SDL_Rect rect = getRect();
-    //collide with walls
     for (auto* obj : collidables)
     {
         if (obj == this) continue;

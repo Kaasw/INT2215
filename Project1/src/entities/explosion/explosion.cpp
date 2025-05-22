@@ -33,12 +33,11 @@ bool Explosion::updateExplosion(float dt, const std::list<Object*>& collidables)
             frameIndex = 0;
             ++loopCount;
             if (loopCount >= MAX_LOOPS)
-                return true; // done
+                return true;
         }
         selectCurrentFrame();
     }
 
-    // After updating frame, check collision against bricks
     SDL_Rect er = getRect();
     for (auto* obj : collidables)
     {
